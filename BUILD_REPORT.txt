@@ -1,0 +1,42 @@
+TRUSTTRIP ASTRA FRESH — BUILD REPORT
+Date: 8 October 2026, Asia/Kolkata
+Source: C:\Users\harsh\OneDrive\Documents\ChatGPT\masai capstone\trusttrip-astra-fresh
+Local preview: http://localhost:4179
+No published app URL exists for this experiment.
+
+USAGE-CONTROL UPDATE — 8 October 2026
+Added durable Firestore usage reservations, per-user chat/minute/day and itinerary/day limits, a shared 200-attempt daily default, input/output bounds, and an AI pause switch. Explanation generation is limited to two attempts per trip and workflow processing to five attempts per job. Retry schedules and operator-required states prevent endless polling. Current verification: 57 tests passed, backend syntax checks passed, production build passed. The new tests use transactional database/provider doubles, including concurrency and no-provider-call assertions on rejected requests; deployed Firestore and actual billing remain unverified. See COST_CONTROLS.txt and .env.example for settings and limitations. No cloud budget or billing account was changed.
+
+REVISION CHRONOLOGY — 8 October 2026
+The independent build originally used the AI-chat-first experience in BUILD_PROMPT.txt. Harsh briefly requested a form-first revision, recorded before that attempt in FORM_FIRST_REVISION_PROMPT.txt. Before a verified form-first preview restart, Harsh cancelled it and explicitly restored AI as the main experience. The active implementation is again AI chat first, with an optional editable summary. The cancelled form-first prompt is retained only as history; BUILD_PROMPT.txt governs the active experience. No separate older implementation was consulted during either change.
+
+INDEPENDENCE
+Read BUILD_PROMPT.txt and ASSIGNMENT_PART2.txt from this assigned directory. Did not inspect earlier app code, archives, repositories or other localhost previews. Implemented from scratch. Parent reviewed only these new files and supplied bug findings; no earlier implementation was supplied. The exact supplied prompt remains unchanged in BUILD_PROMPT.txt and is appended to PART2_SUBMISSION_DRAFT.txt.
+
+IMPLEMENTED
+- React/Vite frontend with responsive planning, saved trips, optional editable preference/room summary, truthful setup/privacy/evidence dialogs and reviewer desk.
+- Express same-origin API; Firebase token verification, server-derived ownership, Firebase Auth UI and Firestore named-database support using authorized Admin credentials.
+- Real server-side Gemini REST calls for contextual multi-turn collection, strict preference extraction, separate confirmed generation, and private one-line explanation generation. Model chosen only through GEMINI_MODEL; no fabricated default or mock live output.
+- Server-owned conversation history, bounded fields, exact dates/party/room checks, separate adult room validation, version checks and expiring leases protecting chat/manual/generate concurrency. Generation also compares the confirmed preference snapshot to the saved version; mismatches receive 409.
+- Empty versioned catalogue with claim-level schema, dated URL requirements, adverse evidence semantics and constraint-scoped lift checks. Generated plans contain only whitelisted general activities and eligible hotel IDs; all costs/routes/facilities remain unknown with this inventory.
+- Atomically persisted trip + automation event; authenticated webhook/poll integration, dynamic Persona Name lookup including suffixes, genuine link-field verification, private drafts, blank Pending public explanations, explicit reviewer role, approval-before-release via external write/read-back, rejection, idempotency and ambiguity blocking.
+- Restrictive Firestore client rules. Owner-authorized deletion with recent sign-in, in-transaction review-job query, active-work and ambiguous-external-write blocking. Live deletion remains unverified.
+- Inactive importable n8n workflow; setup/readiness docs; eight fictional golden inputs; predeclared five anchored rubrics/eight assertions; copyable Part 2 text with NOT RUN evidence gaps.
+
+ACTUAL VERIFICATION
+npm install: succeeded, 288 packages installed. Initial sandbox install stalled; it was cancelled after an approved install completed.
+npm run check: passed.
+npm test: 37 passed, 0 failed. Domain 14; server/API 16; automation 7. Provider and Firestore test doubles are limited to tests, not real end-to-end evidence.
+npm run build: passed (Vite 7.3.7, 130 modules, JS 448.81 kB / 136.16 kB gzip; CSS 14.21 kB). Initial sandbox build failed because native esbuild could not resolve parent filesystem directories; approved build succeeded.
+Preview: Node process serving production dist and API on port 4179. Original desktop page and sign-in modal were browser-inspected; restored chat-first preview is available for the parent’s final reload. Previously observed: correct local preview/setup-required state, zero-property disclosure, disabled chat send, and no fake accounts.
+Runtime emits a dependency punycode deprecation warning. The restored build also reports two removable Zod/Rollup annotation warnings; compilation succeeds. No application failure observed.
+
+IMPORTANT LIMITATIONS
+The catalogue is empty and the AI plan vocabulary consists of general activity suggestions. This is a coverage-limited planning prototype, not a complete useful hotel/route inventory. No complete sourced cost components exist, so total/withinBudget are null and affordability cannot pass. Meaningful sourced travel coverage requires independent catalogue research and further implementation/validation for complete priced components.
+No server secrets, Firebase project connection, live authentication, real database round-trip, Gemini output, n8n activation, Airtable write, actual human decision or public deployment was performed. Eight live evaluation rows and three real transcripts are NOT RUN. Test-double passes do not satisfy those acceptance criteria.
+L0–L4 classification is pending Harsh's actual course definitions. Primary 4D stage is Draft; AI-native rationale is documented with current limitations.
+The n8n JSON has not been imported into an actual n8n account, so node compatibility and credential binding remain to verify. Google AI Studio import/publish has not been performed, and this local experiment is not proof of using the required builder.
+No GitHub push, cloud deployment, account/resource change, billing enablement, credential recovery, notification or human approval simulation was performed.
+
+NEXT AUTHORIZED SETUP STEPS
+See README.txt. Supply secure configuration through platform settings, authorize external setup, run the live two-account persistence/privacy/deletion checks, obtain Harsh's actual human review for at least three runs, run and score all eight actual evals, obtain course ladder definitions, and import/build/publish with an allowed builder only after deployment authorization. Preserve failures and reruns as text. Use PART2_SUBMISSION_DRAFT.txt as an honest starting point, not a completed submission.

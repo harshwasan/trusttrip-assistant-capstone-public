@@ -1,0 +1,14 @@
+{
+  "name": "TrustTrip — generate private explanation and await human review",
+  "active": false,
+  "nodes": [
+    {"id":"webhook","name":"New itinerary webhook","type":"n8n-nodes-base.webhook","typeVersion":2.1,"position":[0,0],"parameters":{"httpMethod":"POST","path":"trusttrip-itinerary","authentication":"headerAuth","responseMode":"onReceived","options":{}}},
+    {"id":"schedule","name":"Recover queued events every minute","type":"n8n-nodes-base.scheduleTrigger","typeVersion":1.2,"position":[0,260],"parameters":{"rule":{"interval":[{"field":"minutes","minutesInterval":1}]}}},
+    {"id":"events","name":"Authenticated GET pending events","type":"n8n-nodes-base.httpRequest","typeVersion":4.2,"position":[230,260],"parameters":{"url":"={{ $env.TRUSTTRIP_BASE_URL + '/api/automation/events' }}","authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","options":{"timeout":30000}}},
+    {"id":"split","name":"One item per trip event","type":"n8n-nodes-base.splitOut","typeVersion":1,"position":[470,260],"parameters":{"fieldToSplitOut":"events","options":{}}},
+    {"id":"run","name":"HTTP endpoint calls Gemini and writes blank Pending Airtable row","type":"n8n-nodes-base.httpRequest","typeVersion":4.2,"position":[740,80],"parameters":{"method":"POST","url":"={{ $env.TRUSTTRIP_BASE_URL + '/api/automation/run' }}","authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","sendBody":true,"specifyBody":"json","jsonBody":"={{ JSON.stringify({ tripId: $json.body?.tripId || $json.tripId }) }}","options":{"timeout":120000}}}
+  ],
+  "connections": {"New itinerary webhook":{"main":[[{"node":"HTTP endpoint calls Gemini and writes blank Pending Airtable row","type":"main","index":0}]]},"Recover queued events every minute":{"main":[[{"node":"Authenticated GET pending events","type":"main","index":0}]]},"Authenticated GET pending events":{"main":[[{"node":"One item per trip event","type":"main","index":0}]]},"One item per trip event":{"main":[[{"node":"HTTP endpoint calls Gemini and writes blank Pending Airtable row","type":"main","index":0}]]}},
+  "settings":{"executionOrder":"v1","saveDataSuccessExecution":"none","saveDataErrorExecution":"none","saveManualExecutions":false},
+  "pinData":{}
+}

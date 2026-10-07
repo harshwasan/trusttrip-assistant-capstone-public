@@ -1,0 +1,30 @@
+TrustTrip AI usage controls — 8 October 2026
+
+DEFAULT SERVER LIMITS
+AI_CHAT_PER_MINUTE=5: chat attempts per rolling 60 seconds, per authenticated user.
+AI_CHAT_PER_DAY=30: chat attempts per user per UTC day.
+AI_ITINERARIES_PER_DAY=5: itinerary-generation attempts per user per UTC day.
+AI_GLOBAL_PER_DAY=200: all Gemini attempts across all users and all three actions per UTC day.
+AI_EXPLANATIONS_PER_TRIP=2: maximum total explanation-generation attempts per immutable trip, including failures. A successfully saved draft is reused without another model call.
+AUTOMATION_MAX_ATTEMPTS=5: maximum total processing attempts per job, including Airtable failures. Exhausted jobs require operator attention and stop automatic retries.
+AI_CHAT_MAX_OUTPUT_TOKENS=2048
+AI_ITINERARY_MAX_OUTPUT_TOKENS=4096
+AI_EXPLANATION_MAX_OUTPUT_TOKENS=512
+AI_MAX_INPUT_CHARS=60000: serialized request size ceiling; this is a character bound, not a token count or currency estimate.
+AI_ENABLED=true: set false to pause new model requests. Saved-trip reads and human review do not call Gemini and remain available.
+
+OPERATION
+Set these values in the app's server environment/settings and restart or redeploy it. Missing variables use the defaults. Invalid configuration fails closed for model requests. A zero request allowance disables that action. No API key or user-supplied request can raise its own allowance. Reviewer accounts also obey model limits.
+Counters are reserved atomically in Firestore before outbound Gemini calls. They are shared by server instances using the same configured database and survive restarts. Never deploy copies against different databases while claiming they share a global cap. Failed model calls and requests interrupted after reservation still consume allowance; no refund can enable repeated uncounted retries. Invalid input, missing model configuration and denied requests do not reach Gemini.
+Daily allowances reset at 00:00 UTC (05:30 IST), not at midnight in each visitor's timezone. The chat minute window is rolling. Starting a new draft does not reset counters. Global limits also constrain multiple accounts; this is not a full anti-abuse or denial-of-service service.
+Quota responses use HTTP 429 and a readable error; temporary limits include a retry time. Permanently exhausted explanation attempts require an operator rather than endless automatic polling. The automation reuses a saved private draft and never uses a retry to bypass human approval.
+
+EVALUATION
+Eight golden inputs do not fit a five-itinerary daily allowance on one test account. Run across planned test accounts/days, or deliberately set AI_ITINERARIES_PER_DAY=10 for the evaluation session while retaining AI_GLOBAL_PER_DAY=200. Restore the normal setting afterward. Failed attempts also count. Do not claim evaluation completion from mocked-provider tests.
+
+WHAT THESE LIMITS DO NOT COVER
+These are request/input/output allowances, not a guaranteed INR or USD spending cap. Actual model prices and provider accounting still apply. They cover only calls routed through this app and this database, not another app using the same Gemini key. Hosting requests, Firebase authentication, Firestore reads/writes, n8n hosting and other services have separate quotas and billing. Even rejected traffic may cause hosting/database usage. Configure provider-side spend controls and billing alerts separately; alerts alone do not halt spending.
+No paid billing, deployment, Firebase permissions, provider budget or cloud resources were changed by this code update. Local provider-double tests do not verify deployed Firebase transactions or actual charges. After syncing GitHub to AI Studio, check the effective limits in Connection details and verify the deployed app rejects excess requests before a model call.
+
+PRIVACY
+Private usage records contain counts, timestamps and hashed account identifiers/trip identifiers needed to enforce limits; they do not need prompts, email addresses or raw conversation. Hashed identifiers are pseudonymous, not anonymous. These counters are separate from deletable trip/draft data, so deletion/reset cannot be used to erase current limits. Expired counter cleanup is an operator task; no automatic retention/TTL deployment is claimed. Keep these collections inaccessible to browser clients using the supplied deny-by-default rules.
