@@ -16,3 +16,31 @@ Local implementation revision. No live AI evaluation or deployment is claimed.
 Known limits: This is a small seed, not a nationwide or price-balanced dataset. Three hotels market luxury; adding HPTDC does not prove affordability. Current operational lifts, clean bathrooms, transport times, stop facilities, medical access, current opening times, age suitability and complete prices remain unverified. Conditional candidates are not assurances of suitability. F1/F2/F3 live evaluations are still required.
 
 The original BUILD_PROMPT.txt stays unchanged for chronology. This note documents the later user-requested revision. Deploy this revised source through the allowed builder; old localhost or AI Studio versions will not acquire these changes automatically.
+
+MULTI-DESTINATION CATALOGUE, REDESIGN AND REVIEW — 8 October 2026 (later pass)
+
+Catalogue
+- catalogue/catalogue.json is now version multi-destination-2026-10-08: 18 hotels and 43 places across Shimla, Goa, Udaipur, Kochi, Tokyo, Singapore and Kathmandu. Existing Shimla IDs are preserved.
+- Shimla additions: a Hotel-claimed lift testimonial for The Legacy (hosted by the hotel, so not Guest-verified), and a Hotel-claimed adverse note that The Oberoi Cecil spa is reached by stairs (topic "other", so it does not exclude the hotel's rooms).
+- Shortfalls against the 3-hotel target: Goa 1, Udaipur 2, Singapore 2. Several official hotel sites blocked automated access. Nothing was added without an opened source page. Details are in catalogue/RESEARCH_NOTES.md.
+- Still no Guest-verified labels, prices or journey times. The hotel sample is luxury-heavy.
+- The app reads this file at server start, validates it with catalogueSchema, and stores catalogueVersion on each saved trip. The catalogue is versioned reference data in the repository, not per-user data, so it is not copied into Firestore. Redeploy to make it live.
+
+Interface
+- Redesigned as a planning dossier rather than a promotional page. Marketing slogans and the illustration band are removed; body text is at least 15-16px (it was 8-12px); fonts are Newsreader, Atkinson Hyperlegible and IBM Plex Mono; evidence labels appear as Guest-verified / Hotel-claimed / Unverified / Adverse stamps.
+- The planner now shows per-destination catalogue coverage (new catalogue.destinations field in /api/config).
+
+Bugs fixed
+- The evidence card still said "Our Shimla seed" after the catalogue expanded.
+- The excursion checkbox in the editor said "outside central Shimla" for every destination.
+- Non-JSON error responses (for example a proxy HTML error page) crashed the error handling with a parse error instead of showing a readable message.
+- Dialogs could not be closed with Escape, and their accessible name was an internal key such as "auth".
+- Catalogue tests hard-coded the 4-hotel / 6-place seed and assumed Tokyo had no coverage. They now check minimum coverage per destination and use an uncovered destination for the no-substitution test.
+
+Security review
+- The error handler forwarded the `code` property of any error, including internal library errors such as Firestore's. It now forwards codes only for the application's own Problem errors.
+- No secrets in the repository or its history (scanned for Google, Airtable, Groq, OpenAI and GitHub key patterns and private keys).
+- npm audit reports 12 transitive advisories (8 moderate, 4 high) through the Firebase SDKs: @grpc/grpc-js < 1.13.6 under the browser SDK's Firestore module, and uuid < 11.1.1 under Google server libraries. The browser bundle contains no gRPC code (the app imports only firebase/app and firebase/auth), the server's gRPC is already 1.14.5, and the app does not call uuid (it uses crypto.randomUUID). npm's suggested fixes are major-version changes to firebase and firebase-admin; they were not forced without a live Firebase test.
+- Recommended, not yet done: a Content-Security-Policy header. It needs a live Firebase sign-in test, because Google sign-in uses popups and iframes.
+
+Verification: 68/68 automated tests pass; the production build passes; local headless-browser screenshots were checked at desktop and phone widths. No live Gemini, Firebase or Airtable run is claimed.

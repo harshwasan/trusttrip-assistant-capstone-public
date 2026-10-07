@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "shimla-seed-2026-10-08",
+  "version": "multi-destination-2026-10-08",
   "checkedAt": "2026-10-08",
   "hotels": [
     {
@@ -16,6 +16,15 @@
           "claim": "The hotel website describes access via a private lift or a short walk. It does not establish that the lift serves every guest room or confirm current operation.",
           "label": "Hotel-claimed",
           "substance": "unknown",
+          "sourceUrl": "https://legacyshimla.com/",
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "lift",
+          "claim": "The hotel website hosts an undated guest testimonial saying lift access helped when travelling with elderly parents. It is hotel-selected, not independent guest verification, and does not show the lift is operating today or reaches every room.",
+          "label": "Hotel-claimed",
+          "substance": "supportive",
           "sourceUrl": "https://legacyshimla.com/",
           "sourceDate": null,
           "checkedAt": "2026-10-08"
@@ -58,6 +67,15 @@
       "sourceDate": null,
       "checkedAt": "2026-10-08",
       "evidence": [
+        {
+          "topic": "other",
+          "claim": "The official page says The Oberoi Spa is accessed via well-lit wooden stairs. This concerns the spa only; guest-room access is not established either way.",
+          "label": "Hotel-claimed",
+          "substance": "adverse",
+          "sourceUrl": "https://www.oberoihotels.com/sitecore/content/OberoiHotels/Home/hotels-in-shimla-cecil/overview",
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
         {
           "topic": "lift",
           "claim": "Lift access from arrival through the guest room and current lift operation are unverified in the reviewed official page.",
@@ -155,6 +173,592 @@
         {
           "topic": "bathroom",
           "claim": "Bathroom cleanliness and room-specific bathroom suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "goa_la_maison_fontainhas",
+      "name": "La Maison Fontainhas",
+      "destination": "Goa",
+      "sourceUrl": "https://www.lamaisongoa.com/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "udaipur_udai_kothi",
+      "name": "Udai Kothi",
+      "destination": "Udaipur",
+      "sourceUrl": "https://www.udaikothi.com/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "udaipur_trident",
+      "name": "Trident, Udaipur",
+      "destination": "Udaipur",
+      "sourceUrl": "https://www.tridenthotels.com/hotels-in-udaipur",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "other",
+          "claim": "The hotel's official page lists 'Rest Rooms for Guests with Special Needs' and 'Wheelchairs' among facilities. It does not describe a step-free route, lift routing or room layout, and the same page shows an expired 2023-2024 tariff table.",
+          "label": "Hotel-claimed",
+          "substance": "unknown",
+          "sourceUrl": "https://www.tridenthotels.com/hotels-in-udaipur",
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "kochi_brunton_boatyard",
+      "name": "Brunton Boatyard",
+      "destination": "Kochi",
+      "sourceUrl": "https://www.cghearth.com/brunton-boatyard",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "kochi_forte_kochi",
+      "name": "Forte Kochi",
+      "destination": "Kochi",
+      "sourceUrl": "https://www.fortekochi.in/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "kochi_bolgatty_palace",
+      "name": "Bolgatty Palace & Island Resort",
+      "destination": "Kochi",
+      "sourceUrl": "https://www.ktdc.com/bolgatty-palace",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "tokyo_keio_plaza",
+      "name": "Keio Plaza Hotel Tokyo",
+      "destination": "Tokyo",
+      "sourceUrl": "https://www.keioplaza.co.jp/en/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "other",
+          "claim": "The hotel's Universal Service page states it offers 13 universal rooms. The page reviewed does not define their step-free features, bathroom layout or lift routing.",
+          "label": "Hotel-claimed",
+          "substance": "unknown",
+          "sourceUrl": "https://www.keioplaza.co.jp/en/guide/universal/",
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "tokyo_hotel_gracery_shinjuku",
+      "name": "Hotel Gracery Shinjuku",
+      "destination": "Tokyo",
+      "sourceUrl": "https://gracery.com/shinjuku/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "bathroom",
+          "claim": "The hotel's Japanese facilities page states every room has a toilet and a separate bathroom, except universal twin rooms, which use a unit bath. This describes layout only, not cleanliness or accessibility.",
+          "label": "Hotel-claimed",
+          "substance": "unknown",
+          "sourceUrl": "https://gracery.com/shinjuku/facilities/",
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "other",
+          "claim": "The hotel's Japanese FAQ lists a wheelchair among items lent free on request, subject to stock. Lending a wheelchair does not establish a step-free route to rooms.",
+          "label": "Hotel-claimed",
+          "substance": "unknown",
+          "sourceUrl": "https://gracery.com/shinjuku/faq/",
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "tokyo_ks_house_tokyo_oasis",
+      "name": "K's House Tokyo Oasis",
+      "destination": "Tokyo",
+      "sourceUrl": "https://kshouse.jp/tokyo-oasis-e/index.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "The hostel's official page lists an elevator among its facilities. It does not show which floors it serves or that it is operating today.",
+          "label": "Hotel-claimed",
+          "substance": "supportive",
+          "sourceUrl": "https://kshouse.jp/tokyo-oasis-e/index.html",
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "social",
+          "claim": "The official page lists a common lounge and a Japanese-style common area, and a news item dated 2026-07-16 about a Japanese calligraphy event. Event frequency and current schedule are unknown.",
+          "label": "Hotel-claimed",
+          "substance": "supportive",
+          "sourceUrl": "https://kshouse.jp/tokyo-oasis-e/index.html",
+          "sourceDate": "2026-07-16",
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "singapore_parkroyal_collection_pickering",
+      "name": "PARKROYAL COLLECTION Pickering",
+      "destination": "Singapore",
+      "sourceUrl": "https://www.panpacific.com/en/hotels-and-resorts/pr-collection-pickering.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "singapore_goodwood_park_hotel",
+      "name": "Goodwood Park Hotel",
+      "destination": "Singapore",
+      "sourceUrl": "https://www.goodwoodparkhotel.com/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "kathmandu_dwarikas",
+      "name": "The Dwarika's",
+      "destination": "Kathmandu",
+      "sourceUrl": "https://www.dwarikas.com/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "kathmandu_yak_and_yeti",
+      "name": "Hotel Yak & Yeti",
+      "destination": "Kathmandu",
+      "sourceUrl": "https://www.yakandyeti.com/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        }
+      ],
+      "prices": []
+    },
+    {
+      "id": "kathmandu_kgh_thamel",
+      "name": "Kathmandu Guest House (KGH Thamel)",
+      "destination": "Kathmandu",
+      "sourceUrl": "https://www.ktmgh.com/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "evidence": [
+        {
+          "topic": "lift",
+          "claim": "Current lift operation and access to the requested guest rooms are unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "step-free-access",
+          "claim": "A continuous step-free route from arrival to the requested room is unverified.",
+          "label": "Unverified",
+          "substance": "unknown",
+          "sourceUrl": null,
+          "sourceDate": null,
+          "checkedAt": "2026-10-08"
+        },
+        {
+          "topic": "bathroom",
+          "claim": "Current bathroom cleanliness and room-specific suitability are unverified.",
           "label": "Unverified",
           "substance": "unknown",
           "sourceUrl": null,
@@ -343,6 +947,1049 @@
       "familyNotes": "The official description calls the uphill trek gruelling. Do not assume it is suitable for children or visitors with limited mobility; assess fitness and conditions before choosing it.",
       "limitations": [
         "The route and transport details are limited; listed as 45 km by road from Shimla to Khatnol. No current trail, weather, or temple operating information verified."
+      ]
+    },
+    {
+      "id": "goa_basilica_of_bom_jesus",
+      "name": "Basilica of Bom Jesus",
+      "destination": "Goa",
+      "area": "Old Goa",
+      "description": "Baroque church built by the Jesuits in 1594 that houses the mortal remains of St Francis Xavier; part of the Old Goa area that Incredible India describes as a UNESCO World Heritage Site.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.incredibleindia.gov.in/en/goa",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A place of worship; visitor rules, crowding and facilities for children or elders are not stated.",
+      "limitations": [
+        "Goa is a state, not one town: travel time from the chosen hotel is unknown, so this is marked as a separate outing that needs consent.",
+        "Current opening hours, dress rules and access were not verified."
+      ]
+    },
+    {
+      "id": "goa_fontainhas_sao_tome",
+      "name": "Fontainhas and São Tomé heritage quarter",
+      "destination": "Goa",
+      "area": "Panaji",
+      "description": "Old residential quarters of Panaji between Ourem Creek and Altinho Hill, built on reclaimed land in the 19th century, with painted tile-roofed houses and taverns.",
+      "interestTags": [
+        "culture",
+        "food"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.incredibleindia.gov.in/en/goa",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source describes streets and houses but not pavement condition, gradients or step-free routes."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A neighbourhood walk; suitability depends on walking ability, which the source does not assess.",
+      "limitations": [
+        "Goa is a state, not one town: travel time from the chosen hotel is unknown, so this is marked as a separate outing that needs consent.",
+        "No route length, walking time or toilet information is given."
+      ]
+    },
+    {
+      "id": "goa_fort_aguada",
+      "name": "Fort Aguada",
+      "destination": "Goa",
+      "area": "Sinquerim, Candolim",
+      "description": "Fort built in 1612 against the Marathas and the Dutch, with a 1630 church of St Lawrence and an 1864 lighthouse; some buildings now house the state prison.",
+      "interestTags": [
+        "culture",
+        "scenic"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.incredibleindia.gov.in/en/goa",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Which parts are open to visitors is not stated; check before planning a family visit.",
+      "limitations": [
+        "Goa is a state, not one town: travel time from the chosen hotel is unknown, so this is marked as a separate outing that needs consent.",
+        "Visitor access, hours and fees were not verified."
+      ]
+    },
+    {
+      "id": "goa_chapora_fort",
+      "name": "Chapora Fort",
+      "destination": "Goa",
+      "area": "Vagator",
+      "description": "Ruined red laterite Portuguese fort from 1717 on top of a hill at the northern tip of Big Vagator Beach; its ramparts give sweeping coastal views.",
+      "interestTags": [
+        "culture",
+        "scenic"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.incredibleindia.gov.in/en/goa",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The fort is described as on top of a hill. The source does not describe the approach path, steps or gradient."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Hilltop ruins; do not assume an easy approach for elders or young children until checked.",
+      "limitations": [
+        "Goa is a state, not one town: travel time from the chosen hotel is unknown, so this is marked as a separate outing that needs consent.",
+        "Approach route and current condition of the ruins were not verified."
+      ]
+    },
+    {
+      "id": "goa_mapusa_friday_market",
+      "name": "Mapusa Friday market",
+      "destination": "Goa",
+      "area": "Mapusa",
+      "description": "Weekly Friday market in North Goa's largest town, selling dried fish, spices, chillies, vinegar, local toddy, Goan sausages and cashew nuts.",
+      "interestTags": [
+        "food",
+        "culture"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.incredibleindia.gov.in/en/goa",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A market setting; crowd levels and facilities are not stated.",
+      "limitations": [
+        "Goa is a state, not one town: travel time from the chosen hotel is unknown, so this is marked as a separate outing that needs consent.",
+        "The source describes a Friday market; current timings were not verified."
+      ]
+    },
+    {
+      "id": "goa_patnem_beach",
+      "name": "Patnem Beach",
+      "destination": "Goa",
+      "area": "Canacona, South Goa",
+      "description": "Beach south of Palolem beyond Colomb Bay, described by Incredible India as less pretty but much quieter than Palolem, with beach huts.",
+      "interestTags": [
+        "rest",
+        "nature",
+        "scenic"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.incredibleindia.gov.in/en/goa",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not describe beach access paths, ramps or steps."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Quietness is the source's comparison with Palolem, not a measured crowd level. Water safety and lifeguards are not stated.",
+      "limitations": [
+        "Goa is a state, not one town: travel time from the chosen hotel is unknown, so this is marked as a separate outing that needs consent.",
+        "Swimming conditions, lifeguards and facilities were not verified."
+      ]
+    },
+    {
+      "id": "udaipur_city_palace",
+      "name": "City Palace",
+      "destination": "Udaipur",
+      "area": "Lake Pichola, east bank",
+      "description": "Palace complex on a hill above the lake with courtyards, pavilions, terraces and hanging gardens, entered through the triple-arched Tripolia gate.",
+      "interestTags": [
+        "culture",
+        "scenic"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.tourism.rajasthan.gov.in/udaipur.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source says the palace towers over the lake on a hill; it does not describe ramps, internal stairs or lifts."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Large historic complex; internal stairs and walking distances are unknown, so plan rest breaks.",
+      "limitations": [
+        "Hours, admission and internal accessibility were not verified."
+      ]
+    },
+    {
+      "id": "udaipur_lake_pichola_boat_ride",
+      "name": "Lake Pichola boat ride",
+      "destination": "Udaipur",
+      "area": "Lake Pichola",
+      "description": "Lake containing the Jagniwas and Jagmandir islands, with the City Palace on its eastern bank; Rajasthan Tourism mentions a sunset boat ride with views of the lake and palace.",
+      "interestTags": [
+        "scenic",
+        "rest"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.tourism.rajasthan.gov.in/lake-pichola.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not describe jetty steps, boarding arrangements or life jackets."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Boarding a boat may involve steps; age rules and safety equipment are not stated.",
+      "limitations": [
+        "Operator, timings, fares and boarding access were not verified."
+      ]
+    },
+    {
+      "id": "udaipur_fateh_sagar_lake",
+      "name": "Fateh Sagar Lake",
+      "destination": "Udaipur",
+      "area": "North of Lake Pichola",
+      "description": "Lake surrounded by hills with three islands, including Nehru Island, a park with a water-jet fountain, and the Udaipur Solar Observatory; the islands can be visited by motorboat.",
+      "interestTags": [
+        "nature",
+        "scenic"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.tourism.rajasthan.gov.in/fateh-sagar-lake.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not describe lakeside paths, ramps or boat boarding access."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "The source mentions a public park island; play facilities and supervision rules are not stated.",
+      "limitations": [
+        "Boat operation, timings and fares were not verified."
+      ]
+    },
+    {
+      "id": "udaipur_bagore_ki_haveli",
+      "name": "Bagore-ki-Haveli",
+      "destination": "Udaipur",
+      "area": "Gangaur Ghat, Lake Pichola",
+      "description": "18th-century mansion by Lake Pichola with over a hundred rooms displaying costumes and modern art, and glass and mirror interiors.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.tourism.rajasthan.gov.in/udaipur.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A large historic mansion; whether rooms are linked by stairs is not stated by the source.",
+      "limitations": [
+        "Hours, admission and accessibility were not verified."
+      ]
+    },
+    {
+      "id": "udaipur_saheliyon_ki_bari",
+      "name": "Saheliyon-ki-Bari",
+      "destination": "Udaipur",
+      "area": "Udaipur",
+      "description": "Garden built by Maharana Sangram Singh II with marble elephants, fountains, kiosks, a lotus pool and a small museum.",
+      "interestTags": [
+        "nature",
+        "culture",
+        "rest"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.tourism.rajasthan.gov.in/udaipur.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Gardens may suit a slower pace, but paths and seating are not described.",
+      "limitations": [
+        "The source does not give its distance from the old city, so it is treated as a separate outing.",
+        "Hours and fees were not verified."
+      ]
+    },
+    {
+      "id": "udaipur_shilpgram",
+      "name": "Shilpgram",
+      "destination": "Udaipur",
+      "area": "7 km west of Udaipur, near Fateh Sagar",
+      "description": "Rural arts and crafts complex over 70 acres, conceived as a living museum of folk and tribal lifestyles; Rajasthan Tourism lists a ten-day Shilpgram Festival from 21 to 30 December.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.tourism.rajasthan.gov.in/udaipur.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "A 70-acre site; the source does not describe paths, internal distances or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Large open site; walking distances inside are unknown.",
+      "limitations": [
+        "Festival dates are as stated by the source; this year's schedule was not verified.",
+        "Hours and admission were not verified."
+      ]
+    },
+    {
+      "id": "udaipur_ahar_museum",
+      "name": "Ahar Museum",
+      "destination": "Udaipur",
+      "area": "Ahar",
+      "description": "Small museum near a cluster of cenotaphs of the Maharanas of Mewar, with earthen pottery, sculptures and archaeological finds, some dating to 1700 BC.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.tourism.rajasthan.gov.in/udaipur.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A lesser-known small museum; visitor numbers and facilities are not stated.",
+      "limitations": [
+        "The source does not give its distance from the city centre, so it is treated as a separate outing.",
+        "Hours and admission were not verified."
+      ]
+    },
+    {
+      "id": "udaipur_udai_sagar_lake",
+      "name": "Udai Sagar Lake",
+      "destination": "Udaipur",
+      "area": "About 13 km east of Udaipur",
+      "description": "Lake created by a dam on the river Berach, begun in 1559 by Maharana Udai Singh; about 4 km long and 2.5 km wide.",
+      "interestTags": [
+        "nature",
+        "scenic"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.tourism.rajasthan.gov.in/udaipur.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "An outlying lake; visitor facilities are not described.",
+      "limitations": [
+        "Road access, viewpoints and facilities were not verified."
+      ]
+    },
+    {
+      "id": "kochi_chinese_fishing_nets",
+      "name": "Chinese fishing nets, Fort Kochi",
+      "destination": "Kochi",
+      "area": "Fort Kochi",
+      "description": "Shore-operated fishing nets that Kerala Tourism says have stood for over five centuries along the Fort Kochi waterfront.",
+      "interestTags": [
+        "scenic",
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.keralatourism.org/destination/fort-kochi/422/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Viewed from the shore; footing near the water is not described.",
+      "limitations": [
+        "Fort Kochi is listed 10 km from Ernakulam town; travel time from the chosen hotel is unknown."
+      ]
+    },
+    {
+      "id": "kochi_st_francis_church",
+      "name": "St. Francis Church",
+      "destination": "Kochi",
+      "area": "Fort Kochi",
+      "description": "Described by Kerala Tourism as India's oldest European church.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.keralatourism.org/destination/fort-kochi/422/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A place of worship; visitor rules are not stated.",
+      "limitations": [
+        "Hours and access were not verified."
+      ]
+    },
+    {
+      "id": "kochi_mattancherry_palace",
+      "name": "Mattancherry Palace (Dutch Palace)",
+      "destination": "Kochi",
+      "area": "Mattancherry",
+      "description": "Historic palace in Mattancherry, listed by Kerala Tourism among the area's must-see sights alongside the Paradesi Synagogue.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.keralatourism.org/destination/fort-kochi/422/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Interior stairs and exhibits are not described by the source.",
+      "limitations": [
+        "Hours, admission and accessibility were not verified."
+      ]
+    },
+    {
+      "id": "kochi_mahatma_gandhi_beach",
+      "name": "Mahatma Gandhi Beach",
+      "destination": "Kochi",
+      "area": "Fort Kochi",
+      "description": "Fort Kochi beach that Kerala Tourism suggests for a leisurely stroll.",
+      "interestTags": [
+        "rest",
+        "scenic"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.keralatourism.org/destination/fort-kochi/422/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not describe paths, ramps or the beach surface."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Water safety and shade are not described.",
+      "limitations": [
+        "Facilities and swimming conditions were not verified."
+      ]
+    },
+    {
+      "id": "kochi_kerala_kathakali_centre",
+      "name": "Kerala Kathakali Centre",
+      "destination": "Kochi",
+      "area": "Fort Kochi",
+      "description": "Venue named by Kerala Tourism for experiencing Kerala's Kathakali culture in Fort Kochi.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.keralatourism.org/destination/fort-kochi/422/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Performance length and suitability for young children are not stated.",
+      "limitations": [
+        "Show times and tickets were not verified."
+      ]
+    },
+    {
+      "id": "kochi_ktdc_village_backwater_tour",
+      "name": "KTDC village backwater canal tour",
+      "destination": "Kochi",
+      "area": "Sea Lord Jetty, Marine Drive",
+      "description": "Country-boat tour run by the state-owned KTDC through canals linking the city with villages; Kerala Tourism says all KTDC trips start at Sea Lord Jetty on Marine Drive.",
+      "interestTags": [
+        "nature",
+        "scenic"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.keralatourism.org/kochi/backwaters-kochi.php",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not describe boarding steps, seating or life jackets."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Boat boarding and trip length are unknown; check before taking elders or young children.",
+      "limitations": [
+        "Trip durations and timings vary per the source; current schedule and fares were not verified."
+      ]
+    },
+    {
+      "id": "tokyo_tsukiji_outer_market",
+      "name": "Tsukiji Outer Market",
+      "destination": "Tokyo",
+      "area": "Tsukiji, near Ginza",
+      "description": "Food market of around 460 shops selling fresh sushi, seafood, seasonings and kitchenware, within walking distance of Ginza.",
+      "interestTags": [
+        "food"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.gotokyo.org/en/spot/65/index.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "GO TOKYO lists facility icons (such as wheelchair ramp, elevator, multi-purpose toilet) for this spot. Icons do not establish a continuous step-free route through the site. The market is full of narrow alleyways."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "GO TOKYO advises visiting in small groups because of narrow alleys; eating while walking is not allowed.",
+      "limitations": [
+        "Source says it is liveliest 9:00-13:00 and closed Wednesdays, Sundays and national holidays; check current days.",
+        "Most stores are cash only per the source."
+      ]
+    },
+    {
+      "id": "tokyo_hama_rikyu_gardens",
+      "name": "Hama-rikyu Gardens",
+      "destination": "Tokyo",
+      "area": "Shiodome",
+      "description": "Edo-period garden on Tokyo Bay whose pond takes in seawater, with the Nakajima teahouse serving matcha.",
+      "interestTags": [
+        "nature",
+        "scenic",
+        "rest",
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.gotokyo.org/en/spot/20/index.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "GO TOKYO lists facility icons (such as wheelchair ramp, elevator, multi-purpose toilet) for this spot. Icons do not establish a continuous step-free route through the site."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A strolling garden; seating and path surfaces are not described.",
+      "limitations": [
+        "GO TOKYO lists it 7 minutes on foot from Shiodome Station; walking time inside the garden is not given."
+      ]
+    },
+    {
+      "id": "tokyo_meiji_jingu",
+      "name": "Meiji Jingu Shrine",
+      "destination": "Tokyo",
+      "area": "Harajuku / Yoyogi",
+      "description": "Shrine honouring Emperor Meiji and Empress Shoken within about 70 hectares of forest, reached by a walking path through the trees.",
+      "interestTags": [
+        "culture",
+        "nature"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.gotokyo.org/en/spot/76/index.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "GO TOKYO lists facility icons (such as wheelchair ramp, elevator, multi-purpose toilet) for this spot. Icons do not establish a continuous step-free route through the site. The shrine is reached by a forest walking path whose length is not given."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "The approach path length is not stated; plan for walking.",
+      "limitations": [
+        "Opening hours were not verified."
+      ]
+    },
+    {
+      "id": "tokyo_yanaka_ginza",
+      "name": "Yanaka Ginza shopping street",
+      "destination": "Tokyo",
+      "area": "Yanaka, near Nippori Station",
+      "description": "Traditional shotengai shopping street of small independent shops selling ready-to-eat food, tea and handmade wagashi sweets.",
+      "interestTags": [
+        "food",
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.gotokyo.org/en/spot/170/index.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A street of small shops; crowding is not described.",
+      "limitations": [
+        "GO TOKYO says it is a short walk from Nippori Station; exact walking time is not given."
+      ]
+    },
+    {
+      "id": "tokyo_sunamachi_ginza",
+      "name": "Sunamachi Ginza shopping district",
+      "destination": "Tokyo",
+      "area": "Koto City, near Nishi-ojima Station",
+      "description": "A 670-metre shopping street of family-run food stalls and small shops, described as a less high-tech, local side of Tokyo.",
+      "interestTags": [
+        "food"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.gotokyo.org/en/spot/552/index.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A lesser-known local street; the source says it is some distance from the nearest station.",
+      "limitations": [
+        "Walking distance from Nishi-ojima Station is described only as some distance."
+      ]
+    },
+    {
+      "id": "tokyo_showa_kinen_park",
+      "name": "Showa Kinen Park",
+      "destination": "Tokyo",
+      "area": "Tachikawa",
+      "description": "National government park of 180 hectares about thirty minutes outside central Tokyo, with natural play areas for children, flower fields, cycling paths and paddleboats.",
+      "interestTags": [
+        "nature",
+        "children",
+        "scenic",
+        "rest"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.gotokyo.org/en/spot/255/index.html",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "GO TOKYO lists facility icons (such as wheelchair ramp, elevator, multi-purpose toilet) for this spot. Icons do not establish a continuous step-free route through the site. GO TOKYO also lists wheelchair and stroller loan."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "The source describes children's play areas; age guidance and supervision rules are not stated.",
+      "limitations": [
+        "Thirty minutes is travel time from central Tokyo, not walking time.",
+        "Hours and admission were not verified."
+      ]
+    },
+    {
+      "id": "singapore_gardens_by_the_bay",
+      "name": "Gardens by the Bay",
+      "destination": "Singapore",
+      "area": "Marina Bay",
+      "description": "Gardens with the Flower Dome glass greenhouse, the Cloud Forest with an indoor waterfall, and Supertrees that host a daily light-and-sound show.",
+      "interestTags": [
+        "nature",
+        "scenic"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/marina-bay/gardens-by-the-bay/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating. The OCBC Skyway is an aerial walkway between Supertrees."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Large site; distances between attractions are not given.",
+      "limitations": [
+        "Tickets, hours and closures were not verified."
+      ]
+    },
+    {
+      "id": "singapore_chinatown_complex_food_centre",
+      "name": "Chinatown Complex Food Centre",
+      "destination": "Singapore",
+      "area": "Chinatown",
+      "description": "Described by Visit Singapore as Singapore's largest food centre, including Michelin Bib Gourmand-awarded hawker stalls and halal options.",
+      "interestTags": [
+        "food"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.visitsingapore.com/see-do-singapore/places-to-see/chinatown/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Busy hawker setting; seating availability is not stated.",
+      "limitations": [
+        "Stall opening days and hours vary and were not verified."
+      ]
+    },
+    {
+      "id": "singapore_chinatown_heritage_centre",
+      "name": "Chinatown Heritage Centre",
+      "destination": "Singapore",
+      "area": "Chinatown",
+      "description": "Museum rebuilt from the memories of early residents of Chinatown shophouses, telling their stories.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.visitsingapore.com/see-do-singapore/places-to-see/chinatown/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Whether exhibits span several floors is not stated by the source.",
+      "limitations": [
+        "Hours and admission were not verified."
+      ]
+    },
+    {
+      "id": "singapore_sri_mariamman_temple",
+      "name": "Sri Mariamman Temple",
+      "destination": "Singapore",
+      "area": "Chinatown",
+      "description": "Singapore's oldest Hindu temple, known for ornate carvings.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://www.visitsingapore.com/see-do-singapore/places-to-see/chinatown/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A place of worship; visitor rules are not stated by the source.",
+      "limitations": [
+        "Hours were not verified."
+      ]
+    },
+    {
+      "id": "singapore_sungei_buloh_wetland_reserve",
+      "name": "Sungei Buloh Wetland Reserve",
+      "destination": "Singapore",
+      "area": "Kranji",
+      "description": "Wetland and mangrove reserve, Singapore's first ASEAN Heritage Park and an important site for migratory birds.",
+      "interestTags": [
+        "nature"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.nparks.gov.sg/visit/parks/park-detail/sungei-buloh-wetland-reserve",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not describe step-free boardwalks. It warns some areas close when flooded by high tides or bad weather."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "An outlying nature reserve; NParks says Platform 1 is closed for upgrading until 23 October 2026.",
+      "limitations": [
+        "Reached by bus 925 or 925M from Kranji MRT per NParks; journey time not given.",
+        "Check flood closure notices before visiting."
+      ]
+    },
+    {
+      "id": "singapore_pulau_ubin",
+      "name": "Pulau Ubin",
+      "destination": "Singapore",
+      "area": "Off the north-east coast",
+      "description": "Island with rustic village landscapes and cycling trails, named by Visit Singapore among lesser-known green spaces loved by locals.",
+      "interestTags": [
+        "nature",
+        "scenic"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://www.visitsingapore.com/things-to-do/urban-wellness/green-spaces/",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating. Reaching the island requires a separate crossing that the source does not describe."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "An island outing; the crossing, terrain and facilities are not described.",
+      "limitations": [
+        "Ferry access, timings and island facilities were not verified."
+      ]
+    },
+    {
+      "id": "kathmandu_durbar_square",
+      "name": "Kathmandu Durbar Square",
+      "destination": "Kathmandu",
+      "area": "Basantapur, old Kathmandu",
+      "description": "Old royal square with palaces, courtyards and more than 50 temples, including Hanuman Dhoka, the Kumari Ghar and the Taleju Temple.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://ntb.gov.np/kathmandu-durbar-square",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Nepal Tourism Board says most of the palace premises are open all week, but the Taleju Temple opens only one day a year.",
+      "limitations": [
+        "Entry fees apply for foreign nationals per NTB; current rates and hours were not verified."
+      ]
+    },
+    {
+      "id": "kathmandu_garden_of_dreams",
+      "name": "Garden of Dreams",
+      "destination": "Kathmandu",
+      "area": "Thamel entrance",
+      "description": "Restored garden in the Kaiser Mahal complex with neo-classical pavilions, fountains and a Chinese Moon Gate, described as a quiet oasis.",
+      "interestTags": [
+        "nature",
+        "rest",
+        "culture"
+      ],
+      "setting": "central",
+      "sourceUrl": "https://ntb.gov.np/garden-of-dreams",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "The source does not establish step-free entry, internal routes, gradients or seating."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Quiet is NTB's description, not a measured crowd level.",
+      "limitations": [
+        "Hours and fees were not verified."
+      ]
+    },
+    {
+      "id": "kathmandu_swayambhunath",
+      "name": "Swayambhunath Stupa",
+      "destination": "Kathmandu",
+      "area": "Hillock 3 km west of Kathmandu",
+      "description": "One of Nepal's holiest Buddhist stupas on a hillock with shrines and monasteries and a panoramic view of the valley.",
+      "interestTags": [
+        "culture",
+        "scenic"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://ntb.gov.np/swayambhunath",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "NTB says the main approach is exceedingly steep stone steps, but a motor road goes almost to the top, followed by a short walk. That last stretch is not described as step-free."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Avoid the stone steps with elders; the road route still ends in a short walk of unknown gradient.",
+      "limitations": [
+        "Largest crowds are expected on Buddha's birthday, usually in May, per NTB.",
+        "Fees and hours were not verified."
+      ]
+    },
+    {
+      "id": "kathmandu_pashupatinath",
+      "name": "Pashupatinath Temple",
+      "destination": "Kathmandu",
+      "area": "5 km east of the city centre, Bagmati River",
+      "description": "Nepal's most revered Hindu temple on the Bagmati River; non-Hindus may view from terraces across the river.",
+      "interestTags": [
+        "culture"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://ntb.gov.np/pashupatinath",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "NTB says taxis or microbuses drop visitors at Gaushala, followed by a short walk of unknown gradient."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "Leather items and photography are not allowed inside per NTB; festival days are very crowded.",
+      "limitations": [
+        "NTB says the main complex is open only to Hindus.",
+        "Fees were not verified for this pass."
+      ]
+    },
+    {
+      "id": "kathmandu_kirtipur",
+      "name": "Kirtipur",
+      "destination": "Kathmandu",
+      "area": "Ridge 8 km south-west of Kathmandu",
+      "description": "Ancient Newar hill town with paved streets, red-brick houses, temple squares, the Chilamchu Stupa and Bagh Bhairab Temple, and Newari eateries.",
+      "interestTags": [
+        "culture",
+        "food",
+        "scenic"
+      ],
+      "setting": "excursion",
+      "sourceUrl": "https://ntb.gov.np/kirtipur",
+      "sourceDate": null,
+      "checkedAt": "2026-10-08",
+      "access": {
+        "status": "unknown",
+        "details": "NTB calls it a little hill town on a ridge; street gradients are not described."
+      },
+      "durationMinutes": null,
+      "walkingMinutes": null,
+      "priceINR": null,
+      "bathrooms": "Unverified",
+      "food": "Unverified",
+      "familyNotes": "A less-visited option outside the city; slopes in a hill town may tire elders.",
+      "limitations": [
+        "NTB lists it about 30 minutes from Kathmandu; this is travel time, not walking time."
       ]
     }
   ]
