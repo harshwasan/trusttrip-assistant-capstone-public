@@ -1,0 +1,18 @@
+CATALOGUE AND FAMILY RECOMMENDATIONS — 8 October 2026
+
+Local implementation revision. No live AI evaluation or deployment is claimed.
+
+- Research delegated to a smaller gpt-6-luna agent, then reviewed and integrated.
+- Four Shimla hotel identities: The Legacy, The Oberoi Cecil, Hotel Marina and HPTDC Holiday Home.
+- Six places: Ridge, Army Heritage Museum, Gaiety Theatre, Craignano Nature Park, Naldehra and Shali Tibba.
+- Official source URLs and checkedAt dates stored in catalogue/catalogue.json. Publication dates unavailable: null. No invented Guest-verified labels. Rates/practical timing unknown.
+- Chat prompt asks the traveller to choose balanced / nature / culture, permits custom interests, and does not infer a mix. Family/group readiness requires this choice.
+- Separate allowExcursions consent controls out-of-centre candidates. Missing consent excludes excursions. Known uphill/strenuous routes are excluded for functional mobility limits.
+- Server validates activity IDs against destination, excursion consent and access restrictions; rejects invented IDs, duplicate named outings and more than two named outings per day.
+- Frontend shows actual hotel evidence and named places, fit notes, source links, unknown facilities and general rest/break suggestions.
+- Hotel statements can be undated while retaining source URLs and checked dates; Guest-verified requires actual report date. Research notes explain the difference.
+- 68 automated tests passed; production build passed. No live Gemini, Firebase or Airtable run has been claimed.
+
+Known limits: This is a small seed, not a nationwide or price-balanced dataset. Three hotels market luxury; adding HPTDC does not prove affordability. Current operational lifts, clean bathrooms, transport times, stop facilities, medical access, current opening times, age suitability and complete prices remain unverified. Conditional candidates are not assurances of suitability. F1/F2/F3 live evaluations are still required.
+
+The original BUILD_PROMPT.txt stays unchanged for chronology. This note documents the later user-requested revision. Deploy this revised source through the allowed builder; old localhost or AI Studio versions will not acquire these changes automatically.

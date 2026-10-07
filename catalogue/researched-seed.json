@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "version": "shimla-seed-2026-10-08",
   "checkedAt": "2026-10-08",
+  "scope": "Small source-backed Shimla seed. Official pages establish names and selected descriptions; this is not a live availability, operating-status, accessibility, safety, or price feed.",
   "hotels": [
     {
       "id": "shimla_legacy_bridge_view",
