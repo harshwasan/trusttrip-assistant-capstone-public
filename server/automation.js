@@ -3,7 +3,7 @@ import { services,assertActive } from './store.js';
 import { explain } from './ai.js';
 import { Problem,resolvePersona } from './domain.js';
 import {UsageProblem} from './usage.js';
-export const automationReady=()=>process.env.ENABLE_AUTOMATION==='true'&&Boolean(process.env.AUTOMATION_TOKEN&&process.env.AIRTABLE_TOKEN);
+export const automationReady=()=>process.env.ENABLE_AUTOMATION==='true'&&(process.env.AUTOMATION_TOKEN||'').length>=32&&Boolean(process.env.AIRTABLE_TOKEN);
 export function serviceAuth(req,res,next){const actual=Buffer.from(req.headers.authorization||''),expected=Buffer.from(`Bearer ${process.env.AUTOMATION_TOKEN||''}`);if(!automationReady()||actual.length!==expected.length||!timingSafeEqual(actual,expected))return res.status(401).json({error:'Automation authentication required.'});next();}
 const base=()=>process.env.AIRTABLE_BASE_ID||'appV8g3WvLNKVEPom';
 async function airtable(path,method='GET',body){const response=await fetch(`https://api.airtable.com/v0/${path}`,{method,signal:AbortSignal.timeout(20000),headers:{Authorization:`Bearer ${process.env.AIRTABLE_TOKEN}`,'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});if(!response.ok)throw new Problem(502,`Airtable returned ${response.status}. Check the integration configuration.`);return response.status===204?{}:response.json();}

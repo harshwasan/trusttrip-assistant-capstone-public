@@ -47,7 +47,7 @@ main{max-width:1240px;padding:0 40px;margin:auto}
 .small{font-size:14px!important;color:var(--ink-3)}
 
 /* ---------- Intro + coverage ---------- */
-.intro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:48px;align-items:start;margin-bottom:34px;animation:rise .5s ease-out both}
+.intro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:48px;align-items:start;margin:34px 0;animation:rise .5s ease-out both}
 .intro h1{font-size:clamp(34px,5vw,58px);line-height:1.04;margin:0 0 18px;letter-spacing:-.03em;overflow-wrap:anywhere}
 .intro>div:first-child{padding-top:18px}
 .lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:620px;margin:0}
@@ -122,6 +122,19 @@ main{max-width:1240px;padding:0 40px;margin:auto}
 .evidence-card h3{font-size:22px;margin:10px 0 8px}
 .evidence-card p{font-size:15px;color:var(--ink-2);margin:0}
 .evidence-card button{border:0;background:transparent;font-size:15px;font-weight:700;color:var(--forest);padding:12px 0 0}
+
+/* ---------- Readiness and room helpers (ported from AI Studio revision) ---------- */
+.summary-lines strong.placeholder{color:var(--ink-3);font-style:italic}
+.primary-action-outline{margin-bottom:4px}
+.readiness-banner{background:#fbf3e3;border:1px solid #ecd9b5;border-left:4px solid var(--claimed);border-radius:4px;padding:12px 14px;margin:14px 0;font-size:15px;color:var(--ink-2)}
+.readiness-banner strong{display:block;color:var(--ink);margin-bottom:2px}
+.readiness-banner .readiness-list{margin:8px 0 0}
+.ready-banner{background:#e9f2ec;border-color:#bcd8c6;border-left-color:var(--verified)}
+.check-label.highlight-check{background:#fbf3e3;border:1.5px solid var(--claimed);border-radius:4px;padding:10px 12px}
+.room-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:20px;flex-wrap:wrap}
+.room-heading h3{margin:0}
+.room-warn{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f9e6e2;border-left:4px solid var(--adverse);border-radius:4px;padding:8px 12px;margin:8px 0;font-size:14px;color:#7e2a20;flex-wrap:wrap}
+.room-warn .text-button{margin:0;color:#7e2a20}
 
 /* ---------- Evidence stamps ---------- */
 .stamp{display:inline-block;font:600 11px var(--mono);letter-spacing:.07em;text-transform:uppercase;border:1.5px solid currentColor;border-radius:3px;padding:2px 7px;transform:rotate(-1.5deg)}

@@ -1,4 +1,5 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
+dotenv.config({ override: true, quiet: true });
 import express from 'express';
 import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
@@ -8,20 +9,24 @@ import { z } from 'zod';
 import { Problem,preferencesSchema,readiness,acceptPlan,publicTrip,catalogueSchema,samePreferences } from './domain.js';
 import { converse,generate } from './ai.js';
 import {publicUsageConfig} from './usage.js';
+import {limiters} from './ratelimit.js';
 import { configured,services,userRef,draftRef,getDraft,lockDraft,unlockDraft,commitDraft,ownedTrip } from './store.js';
 import { automationReady,serviceAuth,processEvent,review,dispatch,deleteExternal,pendingEvents } from './automation.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const catalogue=catalogueSchema.parse(JSON.parse(await readFile(path.join(root,'catalogue/catalogue.json'),'utf8')));
 const coverage=[...new Set([...catalogue.hotels,...catalogue.activities].map(x=>x.destination))].map(name=>({name,properties:catalogue.hotels.filter(h=>h.destination===name).length,activities:catalogue.activities.filter(a=>a.destination===name).length}));
-export const app=express();app.disable('x-powered-by');app.use(express.json({limit:'24kb'}));
-app.use((req,res,next)=>{res.set({'X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','Cache-Control':'no-store','X-Frame-Options':'DENY'});if(req.method!=='GET'&&req.headers.origin&&req.headers.origin!==process.env.APP_ORIGIN&&req.headers.origin!==`http://localhost:${process.env.PORT||4179}`)return res.status(403).json({error:'Cross-origin write blocked.'});next();});
+export const app=express();
+const trustProxy=process.env.TRUST_PROXY??'0';if(!/^\d+$/.test(trustProxy))throw new Error('TRUST_PROXY must be the number of proxy hops in front of the app (0 when none).');app.set('trust proxy',Number(trustProxy));
+const limit=limiters();app.disable('x-powered-by');app.use(express.json({limit:'24kb'}));
+app.use((req,res,next)=>{res.set({'X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','Cache-Control':'no-store'});const forwarded=req.headers['x-forwarded-host'];const allowed=[process.env.APP_ORIGIN,`http://localhost:${process.env.PORT||3000}`,`http://127.0.0.1:${process.env.PORT||3000}`,req.headers.host&&`http://${req.headers.host}`,req.headers.host&&`https://${req.headers.host}`,forwarded&&`https://${forwarded}`,forwarded&&`http://${forwarded}`].filter(Boolean);if(req.method!=='GET'&&req.headers.origin&&!allowed.includes(req.headers.origin))return res.status(403).json({error:'Cross-origin write blocked.'});next();});
+app.use('/api',limit.perIp,limit.perIpAi);
 app.get('/api/config',(req,res)=>res.json({firebase:{apiKey:process.env.FIREBASE_API_KEY||'',authDomain:process.env.FIREBASE_AUTH_DOMAIN||'',projectId:process.env.FIREBASE_PROJECT_ID||'',appId:process.env.FIREBASE_APP_ID||''},firebaseConfigured:configured()&&Boolean(process.env.FIREBASE_API_KEY&&process.env.FIREBASE_AUTH_DOMAIN&&process.env.FIREBASE_APP_ID),geminiConfigured:Boolean(process.env.GEMINI_API_KEY&&process.env.GEMINI_MODEL),automationConfigured:automationReady(),databaseId:process.env.FIRESTORE_DATABASE_ID||'(default)',catalogue:{version:catalogue.version,properties:catalogue.hotels.length,activities:catalogue.activities.length,destinations:coverage},connectionVerified:false,usageLimits:publicUsageConfig()}));
 app.get('/api/health',(req,res)=>res.json({ok:true,mode:configured()?'configured-not-verified':'unconfigured'}));
 async function authenticate(req,res,next){try{const token=req.headers.authorization?.match(/^Bearer (.+)$/)?.[1];if(!token)throw new Problem(401,'Sign in to access private trip data.');let identity;try{identity=await services().auth.verifyIdToken(token,true);}catch(e){if(e instanceof Problem)throw e;throw new Problem(401,'Your sign-in session could not be verified.');}req.identity=identity;next();}catch(e){next(e);}}
 const reviewer=(req,res,next)=>req.identity.trusttripReviewer===true?next():res.status(403).json({error:'A server-assigned reviewer role is required.'});
 app.get('/api/automation/events',serviceAuth,async(req,res)=>{res.json({events:await pendingEvents()});});
 app.post('/api/automation/run',serviceAuth,async(req,res)=>{const {tripId}=z.object({tripId:z.string().uuid()}).strict().parse(req.body);res.json(await processEvent(tripId));});
-app.use('/api',authenticate);
+app.use('/api',authenticate,limit.userReads,limit.userWrites);
 app.get('/api/me',(req,res)=>res.json({reviewer:req.identity.trusttripReviewer===true}));
 app.get('/api/draft',async(req,res)=>{const draft=await getDraft(req.identity.uid);const {lease,...safe}=draft;res.json({...safe,readiness:readiness(draft.preferences)});});
 app.post('/api/chat',async(req,res)=>{const {message,version}=z.object({message:z.string().trim().min(1).max(2500),version:z.number().int().nonnegative()}).strict().parse(req.body);const uid=req.identity.uid,{draft,token}=await lockDraft(uid,version);try{if(draft.messages.length>=100)throw new Problem(422,'This conversation has reached 100 messages. Edit the summary or start a fresh draft.');const result=await converse(uid,draft,message);const next=await commitDraft(uid,token,{preferences:result.preferences,messages:[...draft.messages,{role:'user',text:message},{role:'assistant',text:result.reply}]});delete next.lease;res.json(next);}finally{await unlockDraft(uid,token);}});
@@ -43,5 +48,5 @@ app.use('/api',(req,res)=>res.status(404).json({error:'API route not found.'}));
 app.use(express.static(path.join(root,'dist')));
 app.get('/{*path}',(req,res)=>res.sendFile(path.join(root,'dist/index.html')));
 app.use((error,req,res,next)=>{if(res.headersSent)return next(error);const status=error instanceof Problem?error.status:error instanceof z.ZodError?422:error.type==='entity.too.large'?413:500;if(status===429)res.set('Retry-After',String(error.retryAt?Math.max(1,Math.ceil((Date.parse(error.retryAt)-Date.now())/1000)):86400));res.status(status).json({...(error instanceof Problem&&'code' in error?{code:error.code,retryAt:error.retryAt??null,operatorRequired:Boolean(error.operatorRequired)}:{}),error:status===422?(error instanceof Problem?error.message:'Invalid input. Check formats, counts and required fields.'):status===500?'The operation failed. No successful save is being claimed. Check the server configuration and retry.':error.message});});
-if(process.env.NODE_ENV!=='test'){const port=Number(process.env.PORT||4179);app.listen(port,process.env.HOST||'127.0.0.1',()=>console.log(`TrustTrip local preview: http://localhost:${port} (cloud verification pending)`));}
+if(process.env.NODE_ENV!=='test'){const port=Number(process.env.PORT||3000);app.listen(port,process.env.HOST||'0.0.0.0',()=>console.log(`TrustTrip local preview: http://localhost:${port} (cloud verification pending)`));}
 

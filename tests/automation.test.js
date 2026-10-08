@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {fakeDB} from './fake-store.js';
-process.env.NODE_ENV='test';process.env.ENABLE_FIREBASE_ADMIN='true';process.env.FIREBASE_PROJECT_ID='fixture';process.env.ENABLE_AUTOMATION='true';process.env.AUTOMATION_TOKEN='test-token';process.env.AIRTABLE_TOKEN='test-token';
+process.env.NODE_ENV='test';process.env.ENABLE_FIREBASE_ADMIN='true';process.env.FIREBASE_PROJECT_ID='fixture';process.env.ENABLE_AUTOMATION='true';process.env.AUTOMATION_TOKEN='test-token-0123456789abcdefghijklmnop';process.env.AIRTABLE_TOKEN='test-token-0123456789abcdefghijklmnop';
 const {setTestServices}=await import('../server/store.js');const {review,processEvent,pendingEvents}=await import('../server/automation.js');
 const id='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',originalFetch=globalThis.fetch;
 test.after(()=>{globalThis.fetch=originalFetch;});

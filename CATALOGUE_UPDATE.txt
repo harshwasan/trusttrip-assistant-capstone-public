@@ -44,3 +44,49 @@ Security review
 - Recommended, not yet done: a Content-Security-Policy header. It needs a live Firebase sign-in test, because Google sign-in uses popups and iframes.
 
 Verification: 68/68 automated tests pass; the production build passes; local headless-browser screenshots were checked at desktop and phone widths. No live Gemini, Firebase or Airtable run is claimed.
+
+MERGE WITH GOOGLE AI STUDIO REVISION — 8 October 2026
+Commit cd934af was built on 76d0324 without the later edits made inside Google AI Studio. The AI Studio source (downloaded zip) was compared file by file with 76d0324. It changed only server/index.js, src/main.jsx and src/style.css, and added metadata.json and bun.lock.
+
+Kept from AI Studio:
+- Server: dotenv override; an origin allow-list covering the request host and x-forwarded-host for AI Studio hosting; X-Frame-Options removed so the AI Studio preview can frame the app; default PORT 3000 and HOST 0.0.0.0.
+- Frontend:
+  - the header shows the signed-in email;
+  - the prototype status line appears only in development builds;
+  - summary placeholders and "None requested" for accessibility;
+  - a readiness banner, a highlighted consent checkbox and generate-button hints (emoji removed to match the redesign);
+  - a content-type check on API responses;
+  - auto-distribute rooms;
+  - separate rooms limited to one adult, with a warning and a one-click fix.
+- metadata.json and bun.lock.
+
+Not kept (these AI Studio changes were regressions):
+- Removing hotel evidence, sources, access notes and place details from the itinerary view. The server still returns this data, so the view is restored.
+- Removing the activity-mix select and the excursion-consent checkbox from the editor. The server still requires both.
+- The evidence card claiming "0 properties".
+- A "Download Code (.zip)" link to /trusttrip-assistant-capstone.zip. That file is not built, so the link served index.html (a 696-byte HTML file) instead of a zip.
+
+Fixed while porting: AI Studio's auto-distribute could create a "family room" of children with no adult (for example 1 adult and 4 children gave a room of 2 children alone). Children now join rooms that have adults, then rooms with elders. A children-only room, labelled "check supervision", is created only when no adult exists. The 11-person persona case gives the expected 4 room groups and passes readiness.
+
+Security note on the AI Studio server changes:
+- The origin allow-list accepts the request's own host. Writes need a Bearer token rather than cookies, so cross-site request forgery is not a meaningful risk here.
+- With X-Frame-Options removed, any site can frame the page. A Content-Security-Policy frame-ancestors rule limited to AI Studio and the app's own origin is the recommended follow-up once it can be tested in AI Studio.
+- HOST now defaults to 0.0.0.0, so a local run is reachable from the local network. Set HOST=127.0.0.1 for local-only use.
+
+SECURITY AND RATE-LIMIT PASS — 8 October 2026
+Findings and fixes:
+- Non-AI routes had no request limits. Draft save, reset, trip listing, trip reads, review and account routes each run Firestore reads, writes or transactions, so a script could exhaust the free Firestore quota and take the app down. The unauthenticated /api/config and the token check had no cap either. Added server/ratelimit.js (no new dependency):
+  - every /api request: 120 per minute per IP;
+  - POST /api/chat and POST /api/trips: 12 per minute per IP;
+  - each verified user: 60 reads and 20 writes per minute.
+  A blocked request gets 429 with Retry-After. Static pages are not limited. Each limit is configurable (RATE_LIMIT_* in .env.example).
+- Per-user AI limits could be multiplied by creating more free accounts, letting one person use up the 200-per-day global AI cap for everyone. The per-IP AI limit now bounds this per client. Firebase email verification or App Check would strengthen it further (not implemented).
+- AUTOMATION_TOKEN had no minimum length. Automation now stays disabled unless the token has at least 32 characters, so a short guessable token cannot be used.
+- TRUST_PROXY (proxy hop count, default 0) controls how the client IP is read. Behind AI Studio or Cloud Run hosting set TRUST_PROXY=1; with 0 behind a proxy, every user shares the proxy's IP and therefore one per-IP budget.
+- Limits are held in memory per server instance and reset on restart. With several instances the effective limit multiplies. The durable Firestore AI counters in usage.js are unchanged and remain the cost control for Gemini.
+
+Checked and found sound: Firestore rules deny all client access; every private route verifies the Firebase ID token with revocation checking; trip reads check ownership; reviewer access needs a server-assigned custom claim; the automation token is compared in constant time; request bodies are capped at 24 KB and validated with strict schemas; React escapes all rendered text, and no raw-HTML rendering is used; AI output is accepted only as catalogue IDs validated on the server.
+
+Still open: a Content-Security-Policy (including frame-ancestors, since X-Frame-Options was removed for the AI Studio preview); dependency advisories inside the Firebase SDKs (not reachable, see above); no pagination on GET /api/trips (bounded in practice by the 5-itineraries-per-day limit).
+
+Verification: 73/73 automated tests pass, including new rate-limit and token-length tests. A live HTTP check returned 429 with Retry-After: 60 on the fourth request at a limit of 3, and the page itself still served 200.
