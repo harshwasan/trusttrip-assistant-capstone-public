@@ -13,13 +13,13 @@ export function dates(start,end){
  if(!Number.isFinite(+a)||!Number.isFinite(+b)||a.toISOString().slice(0,10)!==start||b.toISOString().slice(0,10)!==end||b<a||(+b-a)/86400000>30)throw new Problem(422,'Travel dates must be real, ordered and cover at most 31 days.');
  return Array.from({length:(+b-a)/86400000+1},(_,i)=>new Date(+a+i*86400000).toISOString().slice(0,10));
 }
-export function readiness(input){
+export function readiness(input,now=Date.now()){
  const parsed=preferencesSchema.safeParse(input);if(!parsed.success)return {ready:false,issues:['Some fields have an invalid format.']};
  const labels={origin:'an origin',destination:'a destination',startDate:'a start date',endDate:'an end date',budgetINR:'a total budget in INR',travellerType:'a traveller type',adults:'the adult count (excluding elders)',elders:'the elder count',children:'the child count',rooms:'room groups',separateRoomAdults:'the separate adult room count',accessibility:'accessibility needs, or leave the optional field blank for none',maxTravelMinutes:'a maximum uninterrupted travel stretch',interests:'interests, or leave the optional field blank for none',persona:'a planning priority'};
  const p=parsed.data,issues=Object.entries(p).filter(([k,v])=>v===null&&!['activityMix','allowExcursions'].includes(k)).map(([k])=>`Please provide ${labels[k]}.`);
  if(['family','group'].includes(p.travellerType)&&p.activityMix===null)issues.push('Please choose your preferred activity mix, or describe your own.');
  if(p.activityMix==='custom'&&!p.interests?.length)issues.push('Describe at least one interest for your custom activity mix.');
- if(p.startDate&&p.endDate)try{dates(p.startDate,p.endDate);}catch(e){issues.push(e.message);}
+ if(p.startDate&&p.endDate)try{dates(p.startDate,p.endDate);if(p.startDate<new Date(now-86400000).toISOString().slice(0,10))issues.push('The start date is in the past. Choose upcoming travel dates.');}catch(e){issues.push(e.message);}
  if([p.adults,p.elders,p.children].every(v=>v!==null)){
   const total=p.adults+p.elders+p.children;
   if(total<1||total>30)issues.push('Party size must be between 1 and 30.');

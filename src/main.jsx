@@ -14,7 +14,11 @@ function App(){
  useEffect(()=>{if(!modal)return;const onKey=e=>{if(e.key==='Escape')setModal(null);};window.addEventListener('keydown',onKey);return ()=>window.removeEventListener('keydown',onKey);},[modal]);
  async function run(fn){setBusy(true);setError('');try{await fn();}catch(e){setError(e.message?.replace(/Firebase: /,'')||'Something went wrong.');}finally{setBusy(false);}}
  async function chat(e){e.preventDefault();if(!message.trim()||!draft)return;const text=message;await run(async()=>{setDraft(await api('/chat','POST',{message:text,version:draft.version}));setMessage('');});}
- async function generate(){await run(async()=>{const data=await api('/trips','POST',{version:draft.version,evaluationOnly:fiction,reviewed:true,confirmedPreferences:draft.preferences});setDraft(data.draft);setTrips([data.trip,...trips]);setSelected(data.trip);setView('saved');});}
+ async function generate(){const known=new Set(trips.map(t=>t.id));await run(async()=>{try{const data=await api('/trips','POST',{version:draft.version,evaluationOnly:fiction,reviewed:true,confirmedPreferences:draft.preferences});setDraft(data.draft);setTrips([data.trip,...trips]);setSelected(data.trip);setView('saved');}catch(e){
+  // A long generation can outlive the hosting proxy's connection while the server still saves the trip.
+  // Check saved trips a few times before reporting failure, so a saved plan is never shown as an error.
+  for(let i=0;i<4;i++){await new Promise(r=>setTimeout(r,5000));const t=await api('/trips').catch(()=>null),fresh=t?.trips.find(x=>!known.has(x.id));if(fresh){setTrips(t.trips);setSelected(fresh);setDraft(await api('/draft'));setView('saved');return;}}
+  throw e;}});}
  function go(next){setView(next);if(next==='review')run(async()=>setReviews((await api('/reviews')).reviews));if(next==='saved'&&user)run(async()=>setTrips((await api('/trips')).trips));}
  const enabled=user&&draft&&config?.geminiConfigured&&config?.usageLimits?.enabled!==false;
  const ready=Boolean(draft?.readiness?.ready||(draft?.preferences&&readiness(draft.preferences).ready));

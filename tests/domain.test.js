@@ -7,6 +7,7 @@ test('primary case allocates all 11 people in four room groups',()=>assert.equal
 test('changed children require room reconciliation',()=>assert.equal(readiness({...p,children:3}).ready,false));
 test('separate room cannot be silently shared',()=>assert.equal(readiness({...p,separateRoomAdults:0}).ready,false));
 test('dates reject rollover and excessive duration',()=>{assert.throws(()=>dates('2026-02-30','2026-03-01'));assert.throws(()=>dates('2026-12-01','2027-02-01'));});
+test('past travel dates are not ready; today and later are',()=>{const now=Date.parse('2026-10-08T12:00:00Z');const past=readiness({...p,startDate:'2024-12-01',endDate:'2024-12-12'},now);assert.equal(past.ready,false);assert.ok(past.issues.some(i=>/in the past/.test(i)));assert.equal(readiness({...p,startDate:'2026-10-08',endDate:'2026-10-10'},now).ready,true);assert.equal(readiness({...p,startDate:'2026-10-07',endDate:'2026-10-10'},now).ready,true,'one day of slack for time zones');});
 test('blank draft never ready',()=>assert.equal(readiness(blankPreferences()).ready,false));
 test('one entry per day required',()=>assert.throws(()=>acceptPlan({...raw,days:raw.days.slice(1)},p,catalogue)));
 test('unknown hotels and model-authored factual fields rejected',()=>{assert.throws(()=>acceptPlan({...raw,hotelIds:['invented']},p,catalogue));assert.throws(()=>acceptPlan({...raw,price:500},p,catalogue));assert.throws(()=>acceptPlan({...raw,days:[{date:p.startDate,activityIds:['Working lift available']}]},p,catalogue));});
