@@ -1,5 +1,11 @@
 TRUSTTRIP — INDEPENDENT ASTRA BUILD
 
+AI STUDIO STARTUP
+Read AI_STUDIO_SETUP.txt first when importing this existing app. npm run dev now
+serves the React source and API through one Express port, without a prebuilt dist
+folder. npm run setup:check reports missing configuration without making any AI
+calls. Hosted environment settings take precedence over a local .env file.
+
 AI USAGE LIMITS
 Server-side usage controls are described in COST_CONTROLS.txt; all settings and defaults are in .env.example. Defaults: 5 chat attempts per rolling minute, 30 chats/day/user, 5 itineraries/day/user, 200 model attempts/day globally, and at most 2 explanation attempts/trip. Daily reset is 00:00 UTC. Set AI_ENABLED=false to pause new AI calls. Counters persist in Firestore; failed attempts count. These controls do not cap hosting/database bills or guarantee a currency amount. Deploy/sync the new source to enable them in AI Studio.
 
@@ -13,7 +19,8 @@ Run locally (Node 22+):
   npm test
   npm run build
   npm start
-Default preview: http://localhost:4179
+For source development use npm run dev (no prior build required).
+Default preview: http://localhost:3000, or the hosting platform's assigned PORT.
 The server serves dist and the API from the same origin. No fake sign-in, memory database or canned AI response is used in the app. Test doubles exist only under tests/.
 
 SOURCE AND CHRONOLOGY
@@ -24,12 +31,12 @@ CONFIGURATION (NOT PERFORMED)
 2. Supply your own public Firebase web settings. Enable authorized email/password and/or Google sign-in. Add the eventual app domain to Firebase Authentication's authorized domains.
 3. Choose/create the authorized Firestore database. Set FIRESTORE_DATABASE_ID explicitly, including named databases. Supply hosting-authorized Application Default Credentials with access to that project/database; public client config is not an Admin credential. Set ENABLE_FIREBASE_ADMIN=true only after setup. Deploy firestore.rules to that exact database (all browser reads/writes denied; all app access uses owner-checked server routes).
 4. Set GEMINI_API_KEY and GEMINI_MODEL in secure server settings. Select a model actually available to the account that supports generateContent structured JSON; no model name is invented or assumed by default. Test quota before evals.
-5. Set APP_ORIGIN to the exact app origin. Set PORT to the hosting-assigned port and HOST=0.0.0.0 for container/cloud hosting. The local default binds 127.0.0.1 only.
+5. Set APP_ORIGIN to the exact app origin. Keep the hosting-assigned PORT and use HOST=0.0.0.0 for container/cloud hosting. The default host is 0.0.0.0; set HOST=127.0.0.1 for a local-only preview.
 6. Restart and sign in. 'Configured' never means 'verified'. Record successful real checks separately.
 
 CATALOGUE LIMITATION
-catalogue/catalogue.json deliberately starts empty. Every destination currently receives a coverage-limited plan of general daily suggestions, with no suggested hotel, route, clinic, bathroom stop, local event or verified cost. This is not a complete useful travel inventory. The AI selects general activities by ID, which the server resolves into explicit generic text; it cannot introduce factual free text in saved itinerary plans. Prices remain null, never zero. Affordability must fail until a complete sourced cost engine and price inventory exist. The current code does not total partial hotel prices or claim them as complete costs.
-To expand coverage, independently research properties and validate catalogueSchema in server/domain.js. Every non-Unverified claim needs a real URL, source date and checked date. Inspect source substance manually; schema validation proves structure, not truth. Adverse lift/step-free reports conflict with no-stairs requests. Other adverse reports remain visible and are not recast as lift evidence. Unknown lift evidence remains unknown. Room groups are requests; physical capacity and availability are unverified.
+catalogue/catalogue.json contains 18 hotels and 43 places/activities across Shimla, Goa, Udaipur, Kochi, Tokyo, Singapore and Kathmandu. Source-linked entries are selected by ID, with destination, excursion-consent and known mobility-conflict filtering. This remains a limited research seed: identities and descriptions do not establish current access, event schedules, bathroom quality, costs or availability. Destinations without coverage get explicitly generic suggestions. Missing prices remain null, never zero; incomplete costs cannot establish affordability.
+To expand coverage, independently research properties and validate catalogueSchema in server/catalogue.js (also exported by server/domain.js). Preserve source URLs and checked dates; use null for an unavailable publication date. Guest-verified claims need a dated guest source; property statements stay Hotel-claimed. Inspect source substance manually; schema validation proves structure, not truth. Adverse lift/step-free reports conflict with no-stairs requests. Other adverse reports remain visible and are not recast as lift evidence. Unknown lift evidence remains unknown. Room groups are requests; physical capacity and availability are unverified.
 
 HUMAN-REVIEWED AUTOMATION (IMPLEMENTED; EXTERNAL SETUP DEFERRED)
 The current generation flow explicitly accepts fictional evaluation inputs only, because the specified Airtable base is public for grading. A required user checkbox is reinforced by evaluationOnly:true on the server. Do not enter actual private traveller data for this evaluation.

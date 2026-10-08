@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
-dotenv.config({ override: true, quiet: true });
+import './env.js';
 import express from 'express';
-import { readFile } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
+import { createServer } from 'node:http';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -16,6 +16,8 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const catalogue=catalogueSchema.parse(JSON.parse(await readFile(path.join(root,'catalogue/catalogue.json'),'utf8')));
 const coverage=[...new Set([...catalogue.hotels,...catalogue.activities].map(x=>x.destination))].map(name=>({name,properties:catalogue.hotels.filter(h=>h.destination===name).length,activities:catalogue.activities.filter(a=>a.destination===name).length}));
 export const app=express();
+const httpServer=createServer(app);
+const development=process.env.NODE_ENV!=='test'&&process.argv.includes('--dev');
 const trustProxy=process.env.TRUST_PROXY??'0';if(!/^\d+$/.test(trustProxy))throw new Error('TRUST_PROXY must be the number of proxy hops in front of the app (0 when none).');app.set('trust proxy',Number(trustProxy));
 const limit=limiters();app.disable('x-powered-by');app.use(express.json({limit:'24kb'}));
 app.use((req,res,next)=>{res.set({'X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','Cache-Control':'no-store'});const forwarded=req.headers['x-forwarded-host'];const allowed=[process.env.APP_ORIGIN,`http://localhost:${process.env.PORT||3000}`,`http://127.0.0.1:${process.env.PORT||3000}`,req.headers.host&&`http://${req.headers.host}`,req.headers.host&&`https://${req.headers.host}`,forwarded&&`https://${forwarded}`,forwarded&&`http://${forwarded}`].filter(Boolean);if(req.method!=='GET'&&req.headers.origin&&!allowed.includes(req.headers.origin))return res.status(403).json({error:'Cross-origin write blocked.'});next();});
@@ -45,8 +47,18 @@ app.delete('/api/account',async(req,res)=>{const uid=req.identity.uid,{db,auth}=
  for(const j of jobs.docs)if(j.data().airtableId){await deleteExternal(j.data().airtableId);await j.ref.update({airtableId:null});}
  const trips=await db.collection('trips').where('owner','==',uid).get();for(const t of trips.docs){await db.doc(`automationEvents/${t.id}`).delete();await db.doc(`privateReviews/${t.id}`).delete();await t.ref.delete();}await db.recursiveDelete(userRef(uid));await auth.deleteUser(uid);res.json({deleted:true});});
 app.use('/api',(req,res)=>res.status(404).json({error:'API route not found.'}));
-app.use(express.static(path.join(root,'dist')));
-app.get('/{*path}',(req,res)=>res.sendFile(path.join(root,'dist/index.html')));
+if(development){
+ const {createServer:createViteServer}=await import('vite');
+ const vite=await createViteServer({root,server:{middlewareMode:true,hmr:{server:httpServer}},appType:'spa'});
+ app.use(vite.middlewares);
+}else{
+ if(process.env.NODE_ENV!=='test'){
+  try{await access(path.join(root,'dist/index.html'));}
+  catch{throw new Error('Production build is missing. Run npm run build before npm start, or use npm run dev for the source preview.');}
+ }
+ app.use(express.static(path.join(root,'dist')));
+ app.get('/{*path}',(req,res)=>res.sendFile(path.join(root,'dist/index.html')));
+}
 app.use((error,req,res,next)=>{if(res.headersSent)return next(error);const status=error instanceof Problem?error.status:error instanceof z.ZodError?422:error.type==='entity.too.large'?413:500;if(status===429)res.set('Retry-After',String(error.retryAt?Math.max(1,Math.ceil((Date.parse(error.retryAt)-Date.now())/1000)):86400));res.status(status).json({...(error instanceof Problem&&'code' in error?{code:error.code,retryAt:error.retryAt??null,operatorRequired:Boolean(error.operatorRequired)}:{}),error:status===422?(error instanceof Problem?error.message:'Invalid input. Check formats, counts and required fields.'):status===500?'The operation failed. No successful save is being claimed. Check the server configuration and retry.':error.message});});
-if(process.env.NODE_ENV!=='test'){const port=Number(process.env.PORT||3000);app.listen(port,process.env.HOST||'0.0.0.0',()=>console.log(`TrustTrip local preview: http://localhost:${port} (cloud verification pending)`));}
+if(process.env.NODE_ENV!=='test'){const port=Number(process.env.PORT||3000);httpServer.listen(port,process.env.HOST||'0.0.0.0',()=>console.log(`TrustTrip ${development?'source preview':'built app'}: http://localhost:${port} (cloud verification pending)`));}
 

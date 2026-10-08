@@ -1,0 +1,66 @@
+TRUSTTRIP: AI STUDIO SETUP, ONE STAGE AT A TIME
+
+This file describes startup of the existing application. BUILD_PROMPT.txt records
+the original capstone build prompt, not a request to regenerate this project.
+
+1. START THE PREVIEW
+Install dependencies with npm ci, including dev dependencies. Run npm run dev.
+This starts one Node/Express server with Vite middleware for the React source.
+It does not require dist and exposes UI and /api on the SAME port.
+Use the platform's PORT; the fallback is 3000. HOST must be 0.0.0.0 in a container.
+Set APP_ORIGIN to the exact browser preview origin so Vite permits its hostname.
+Localhost is allowed by default; do not disable Vite's host check globally.
+Do not run a second Vite-only server. Do not copy local PORT/APP_ORIGIN settings
+over the platform configuration. Do not set NODE_ENV=test on the preview.
+Check GET /api/health returns JSON and / displays the planner.
+This stage requires no Firebase, Gemini, Airtable or n8n credentials.
+
+2. CHECK CONFIGURATION WITHOUT USING MODEL QUOTA
+Run npm run setup:check. It lists missing environment VARIABLE NAMES only and
+validates the catalogue and allowance settings. Exit 1 means action is needed;
+it does not mean the React app failed to compile. No external requests are made.
+AI Studio builder quota is separate from Gemini calls made inside TrustTrip.
+Repeated builder instructions or model-generated test trips are not startup checks.
+
+3. CONNECT SIGN-IN AND PERSISTENCE
+Keep the intended existing Firebase project and correct Firestore database ID.
+Provide FIREBASE_PROJECT_ID, FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN and
+FIREBASE_APP_ID via the platform settings. Enable the chosen sign-in provider
+and authorize the actual preview/published domain in Firebase Authentication.
+The Node backend also needs Application Default Credentials for that SAME
+project/database, supplied through the authorized runtime identity or securely
+mounted credentials. The public Firebase web API key does not grant Admin access.
+Set ENABLE_FIREBASE_ADMIN=true only after that configuration is ready.
+If runtime credentials or permissions are unavailable, report that exact blocker.
+Do not repeatedly rewrite Auth, relax firestore.rules or put Admin keys in React.
+Verify sign-in, then save a preference edit and reload to verify persistence.
+Those steps need no Gemini calls.
+
+4. CONNECT THE APP'S AI
+Use the platform's server-side GEMINI_API_KEY secret. Set GEMINI_MODEL explicitly
+to an available generateContent model supporting structured JSON for the account.
+Do not guess model availability or use paid billing to resolve a quota error.
+Once stages 1-3 pass, make ONE deliberate chat request. Inspect its result before
+trying generation. Keep the existing per-user and global AI usage limits.
+On provider quota exhaustion, report the response and stop model retries.
+
+5. AUTOMATION AND PUBLISHING
+Only after sign-in, saving and AI work, configure the separate Airtable/n8n
+workflow using README.txt. Keep explanations behind the real human review step.
+For a production bundle run npm run build, then npm start. Production requires
+dist; development uses source files. Follow the assignment's free-tier constraint.
+The local setup tests do not prove Firebase credentials, live AI, or publication.
+
+SHORT PROMPT TO PASTE INTO THE EXISTING AI STUDIO PROJECT
+Use the corrected GitHub source and read AI_STUDIO_SETUP.txt. Work only on stage 1
+first: install dependencies including Vite, start npm run dev on the assigned
+PORT with HOST=0.0.0.0 and APP_ORIGIN set to the browser preview origin, and check
+/api/health and the planner UI. The app now mounts
+Vite inside Express; do not create a second frontend server. Run npm run setup:check
+and report the missing variable names without revealing their values. Do not
+regenerate the app or call Gemini while diagnosing startup. If stage 1 passes,
+verify Firebase sign-in and a saved preference edit using the intended project.
+If credentials/permissions are missing, report the exact blocker and stop there.
+Only after persistence works, send one deliberate AI chat request. On exhausted
+quota, stop rather than repeatedly retrying. Keep the existing access checks,
+usage limits, catalogue and human review workflow.
