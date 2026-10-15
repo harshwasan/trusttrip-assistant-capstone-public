@@ -1,20 +1,28 @@
 import { z } from 'zod';
 import {usageConfig,validateContext,ensureEnabled,reserveUsage,UsageProblem} from './usage.js';
 import { preferencesSchema,planSchema,activities,dates,eligibleHotels,eligibleActivities,Problem } from './domain.js';
+import { toGeminiSchema } from './gemini-schema.js';
 const extraction=z.object({reply:z.string().trim().min(1).max(900),preferences:preferencesSchema}).strict();
+function providerDiagnostic(response,body){
+ const message=typeof body?.error?.message==='string'?body.error.message:'';
+ const providerStatus=typeof body?.error?.status==='string'&&/^[A-Z_]{1,50}$/.test(body.error.status)?body.error.status:null;
+ const keyword=message.match(/\$schema|additionalProperties|minLength|maxLength|minItems|maxItems|anyOf|responseJsonSchema|responseSchema/i)?.[0]||null;
+ const category=/schema|generationConfig|generation_config/i.test(message)?'schema_rejected':/key|permission|credential/i.test(message)?'auth_rejected':/quota|resource exhausted|rate limit/i.test(message)?'quota_rejected':'request_rejected';
+ console.error('Gemini request rejected',JSON.stringify({httpStatus:response.status,providerStatus,category,schemaKeyword:keyword}));
+}
 export async function gemini(context,system,contents,schema){
  validateContext(context);const limits=usageConfig();ensureEnabled(limits,context.action);
  if(!process.env.GEMINI_API_KEY||!process.env.GEMINI_MODEL)throw new UsageProblem('Gemini is not configured. Add server secrets in secure settings.',{code:'AI_UNCONFIGURED',status:503,operatorRequired:true});
  const model=process.env.GEMINI_MODEL.replace(/^models\//,'');if(!/^[a-zA-Z0-9._-]+$/.test(model))throw new UsageProblem('Invalid model configuration.',{code:'AI_CONFIG_INVALID',status:503,operatorRequired:true});
  const validContents=z.array(z.object({role:z.enum(['user','model']),parts:z.array(z.object({text:z.string()}).strict()).min(1)}).strict()).min(1);
  if(typeof system!=='string'||!system.trim()||!validContents.safeParse(contents).success)throw new Problem(422,'Invalid model input. Nothing was sent.');
- const body=JSON.stringify({systemInstruction:{parts:[{text:system}]},contents,generationConfig:{responseMimeType:'application/json',responseJsonSchema:z.toJSONSchema(schema),temperature:0.25,maxOutputTokens:limits.tokens[context.action]}});
+ const body=JSON.stringify({systemInstruction:{parts:[{text:system}]},contents,generationConfig:{responseMimeType:'application/json',responseJsonSchema:toGeminiSchema(schema),temperature:0.25,maxOutputTokens:limits.tokens[context.action]}});
  if(body.length>limits.maxInputChars)throw new Problem(413,'The conversation or trip details are too long. Shorten them or start a new draft. Nothing was sent.');
  const reservation=await reserveUsage(context,limits);
  if(reservation.cachedExplanation)return schema.parse({explanation:reservation.cachedExplanation});
  try{
   const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{method:'POST',signal:AbortSignal.timeout(60000),headers:{'Content-Type':'application/json','x-goog-api-key':process.env.GEMINI_API_KEY},body});
-  if(!res.ok)throw new Problem(502,`Gemini request failed (${res.status}). This attempt counts toward usage limits.`);
+  if(!res.ok){providerDiagnostic(res,await res.json().catch(()=>null));throw new Problem(502,`Gemini request failed (${res.status}). This attempt counts toward usage limits.`);}
   const data=await res.json();let raw;try{raw=JSON.parse(data.candidates?.[0]?.content?.parts?.filter(p=>p.text).map(p=>p.text).join('')||'');}catch{throw new Problem(502,'Gemini returned no valid structured response. This attempt counts toward usage limits.');}
   const result=schema.safeParse(raw);if(!result.success)throw new Problem(502,'Gemini returned invalid fields; no changes were saved. This attempt counts toward usage limits.');return result.data;
  }catch(error){
