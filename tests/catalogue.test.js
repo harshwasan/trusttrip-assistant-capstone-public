@@ -46,9 +46,22 @@ test('named suggestions preserve exact catalogue facts and unknowns, with explic
  assert.match(a.suitability,/Conditional/);assert.ok(a.sourceUrl);assert.ok(a.fit.reason);assert.equal(accepted.cost.withinBudget,null);
  assert.equal(accepted.days[1].practicalPlan.length,2);assert.equal(accepted.rooms.length,2);
 });
-test('duplicates and overloaded named-outing days fail acceptance',()=>{
- const repeated=structuredClone(raw);repeated.days[0].activityIds=['shimla_ridge'];repeated.days[1].activityIds=['shimla_ridge'];assert.throws(()=>acceptPlan(repeated,p,catalogue),/repeated/);
+test('named places appear only once across days; later repeats become labelled generic suggestions',()=>{
+ const repeated=structuredClone(raw);repeated.days[0].activityIds=['shimla_ridge'];repeated.days[1].activityIds=['shimla_ridge'];
+ const accepted=acceptPlan(repeated,p,catalogue);
+ assert.equal(accepted.days[0].activities[0].name,'The Ridge');
+ assert.equal(accepted.days[1].activities[0].kind,'general-suggestion');
+ assert.equal(accepted.days[1].activities[0].id,'interests');
+});
+test('duplicates within a day and overloaded named-outing days fail acceptance',()=>{
+ const duplicate=structuredClone(raw);duplicate.days[0].activityIds=['shimla_ridge','shimla_ridge'];assert.throws(()=>acceptPlan(duplicate,p,catalogue),/within one day/);
  const crowded=structuredClone(raw);crowded.days[0].activityIds=['shimla_ridge','shimla_gaiety_theatre','shimla_army_heritage_museum'];assert.throws(()=>acceptPlan(crowded,{...p,allowExcursions:true},catalogue),/two named/);
+});
+test('zero-night plan does not surface an overnight hotel candidate',()=>{
+ const dayTrip={...p,startDate:'2026-12-01',endDate:'2026-12-01'};
+ const oneDay={days:[{date:'2026-12-01',activityIds:['shimla_ridge']}],hotelIds:[catalogue.hotels[0].id]};
+ const accepted=acceptPlan(oneDay,dayTrip,catalogue);
+ assert.equal(accepted.cost.nights,0);assert.deepEqual(accepted.stays,[]);
 });
 test('model factual prose and evidence upgrades stay outside the plan schema',()=>{
  const invented=structuredClone(raw);invented.days[0].activities=[{name:'Made-up clinic',stepFree:true}];assert.throws(()=>acceptPlan(invented,p,catalogue));

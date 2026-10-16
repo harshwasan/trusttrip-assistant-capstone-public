@@ -45,15 +45,23 @@ export function acceptPlan(raw,p,catalogue){
  for(const day of plan.days){
   if(new Set(day.activityIds).size!==day.activityIds.length)throw new Problem(422,'Duplicate activity within one day.');
   let namedCount=0;
+  day.activityIds=day.activityIds.map(id=>{
+   if(Object.hasOwn(activities,id))return id;
+   if(!places.some(a=>a.id===id))throw new Problem(422,'Generated activity is outside eligible catalogue coverage.');
+   // Long trips can have more days than eligible places. Keep each named place
+   // once and visibly mark later slots as generic, without inventing coverage.
+   if(namedIds.has(id))return 'interests';
+   namedIds.add(id);return id;
+  });
+  day.activityIds=[...new Set(day.activityIds)];
   for(const id of day.activityIds){
    if(Object.hasOwn(activities,id))continue;
-   if(!places.some(a=>a.id===id))throw new Problem(422,'Generated activity is outside eligible catalogue coverage.');
-   if(namedIds.has(id))throw new Problem(422,'A named activity was repeated across days.');
-   namedIds.add(id);namedCount++;
+   namedCount++;
   }
   if(namedCount>2)throw new Problem(422,'Limit this draft to two named outings per day with time for breaks.');
  }
 if(new Set(plan.hotelIds).size!==plan.hotelIds.length||plan.hotelIds.some(id=>!allowed.some(h=>h.id===id)))throw new Problem(422,'Generated property IDs are outside eligible catalogue coverage.');
+if(window.length===1)plan.hotelIds=[]; // A one-day trip has zero nights.
  // Model output cannot contain free factual claims, prices, property names or evidence upgrades.
  return {catalogueVersion:catalogue.version,coverage:allowed.length?'limited':'no-properties',destination:p.destination,activityCoverage:places.length?'limited':'no-activities',activityMix:p.activityMix?activityMixes[p.activityMix]:null,days:plan.days.map(d=>({date:d.date,activities:d.activityIds.map(id=>Object.hasOwn(activities,id)?{id,text:activities[id],kind:'general-suggestion'}:{...places.find(a=>a.id===id),text:places.find(a=>a.id===id).description,kind:'catalogue-place',suitability:'Conditional — access, facilities and timings need confirmation'}),practicalPlan:['Allow a meal and rest period between outings; food stops are not yet verified.',`Plan toilet breaks within your ${p.maxTravelMinutes}-minute travel limit; exact routes and stop facilities are unverified.`]})),stays:plan.hotelIds.map(id=>allowed.find(h=>h.id===id)),rooms:p.rooms,roomNotice:'Allocation requests only. Capacity, room placement, lift operation, availability and prices require confirmation; this is not a booking.',cost:{currency:'INR',total:null,withinBudget:null,basis:'No complete sourced transport, lodging, food and activity price components. Missing amounts are unknown, never zero.',nights:window.length-1,rooms:p.rooms.length,exclusions:['Transport','Lodging','Food','Activities','Taxes and fees']},travel:{maxUninterruptedMinutes:p.maxTravelMinutes,distance:null,duration:null,stops:[],medicalHelp:null},unresolved:['Named places are researched candidates, not confirmed accessible or age-suitable activities.', 'No verified journey distances, travel times, bathroom stops or nearby medical help are available.','Working lifts and clean bathrooms must be checked directly; amenities checkboxes are not evidence.','Check current transport, cancellation and issue-handling policies before booking.']};
 }
