@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "version": "multi-destination-2026-10-08",
-  "checkedAt": "2026-10-08",
+  "version": "multi-destination-2026-10-17",
+  "checkedAt": "2026-10-17",
   "hotels": [
     {
       "id": "shimla_legacy_bridge_view",
@@ -417,7 +417,76 @@
           "checkedAt": "2026-10-08"
         }
       ],
-      "prices": []
+      "prices": [
+        {
+          "component": "Golf view single room (lowest published room tariff)",
+          "unitINR": 4000,
+          "unit": "room-night",
+          "sourceUrl": "https://www.ktdc.com/bolgatty-palace/tariff",
+          "sourceDate": null,
+          "checkedAt": "2026-10-17",
+          "validFrom": "2026-04-01",
+          "validThrough": "2027-03-31",
+          "exclusions": [
+            "GST",
+            "transport",
+            "other meals",
+            "activities"
+          ],
+          "minimumPublished": true
+        },
+        {
+          "component": "Golf view double room",
+          "unitINR": 4500,
+          "unit": "room-night",
+          "sourceUrl": "https://www.ktdc.com/bolgatty-palace/tariff",
+          "sourceDate": null,
+          "checkedAt": "2026-10-17",
+          "validFrom": "2026-04-01",
+          "validThrough": "2027-03-31",
+          "exclusions": [
+            "GST",
+            "transport",
+            "other meals",
+            "activities"
+          ],
+          "minimumPublished": false
+        },
+        {
+          "component": "Breakfast per person",
+          "unitINR": 500,
+          "unit": "person-meal",
+          "sourceUrl": "https://www.ktdc.com/bolgatty-palace/tariff",
+          "sourceDate": null,
+          "checkedAt": "2026-10-17",
+          "validFrom": "2026-04-01",
+          "validThrough": "2027-03-31",
+          "exclusions": [
+            "GST",
+            "transport",
+            "other meals",
+            "activities"
+          ],
+          "minimumPublished": false
+        },
+        {
+          "component": "Lunch or dinner per person",
+          "unitINR": 800,
+          "unit": "person-meal",
+          "sourceUrl": "https://www.ktdc.com/bolgatty-palace/tariff",
+          "sourceDate": null,
+          "checkedAt": "2026-10-17",
+          "validFrom": "2026-04-01",
+          "validThrough": "2027-03-31",
+          "exclusions": [
+            "GST",
+            "transport",
+            "other meals",
+            "activities"
+          ],
+          "minimumPublished": false
+        }
+      ]
     },
     {
       "id": "tokyo_keio_plaza",

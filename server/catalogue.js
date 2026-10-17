@@ -13,7 +13,7 @@ const evidence=z.object({
  if(e.label==='Guest-verified'&&!e.sourceDate)ctx.addIssue({code:'custom',message:'Guest evidence needs its actual report date.'});
  if(e.label==='Unverified'&&e.substance!=='unknown')ctx.addIssue({code:'custom',message:'Unverified evidence must remain unknown.'});
 });
-const hotel=z.object({id:short,name:short,destination:short,sourceUrl:sourceUrl.optional(),sourceDate:z.iso.date().nullable().optional(),checkedAt:z.iso.date().optional(),evidence:z.array(evidence),prices:z.array(z.object({component:short,unitINR:z.number().positive(),unit:short,sourceUrl,sourceDate:z.iso.date(),checkedAt:z.iso.date()}).strict())}).strict();
+const hotel=z.object({id:short,name:short,destination:short,sourceUrl:sourceUrl.optional(),sourceDate:z.iso.date().nullable().optional(),checkedAt:z.iso.date().optional(),evidence:z.array(evidence),prices:z.array(z.object({component:short,unitINR:z.number().positive(),unit:short,sourceUrl,sourceDate:z.iso.date().nullable(),checkedAt:z.iso.date(),validFrom:z.iso.date().optional(),validThrough:z.iso.date().optional(),minimumPublished:z.boolean().default(false),exclusions:z.array(short).default([])}).strict())}).strict();
 const activity=z.object({
  id:short,name:short,destination:short,area:short,description:z.string().min(1).max(500),
  interestTags:z.array(short).min(1).max(8),setting:z.enum(['central','excursion']),...datedSource,
@@ -29,7 +29,15 @@ export const catalogueSchema=z.object({schemaVersion:z.literal(1),version:short,
 });
 export const activityMixes={balanced:'Gentle sightseeing, children’s activities and rest',nature:'Nature, scenic places and relaxed outings',culture:'Culture, local food and city attractions',custom:'My own interests'};
 export function needsLimitedMobility(p){return (p.accessibility||[]).some(s=>/stairs|step.free|wheelchair|lift|limited mobility|walking limit/i.test(s));}
-export function eligibleHotels(p,catalogue){return catalogue.hotels.filter(h=>h.destination.toLowerCase()===p.destination.toLowerCase()&&!h.evidence.some(e=>e.substance==='adverse'&&needsLimitedMobility(p)&&['step-free-access','lift'].includes(e.topic)));}
+export function eligibleHotels(p,catalogue){return catalogue.hotels.filter(h=>{
+ if(h.destination.toLowerCase()!==p.destination.toLowerCase())return false;
+ if(h.evidence.some(e=>e.substance==='adverse'&&needsLimitedMobility(p)&&['step-free-access','lift'].includes(e.topic)))return false;
+ const start=Date.parse(`${p.startDate}T00:00:00Z`),end=Date.parse(`${p.endDate}T00:00:00Z`);
+ const nights=(end-start)/86400000,rooms=p.rooms?.length||0;
+ if(!Number.isInteger(nights)||nights<=0||!rooms||!Number.isFinite(p.budgetINR))return true;
+ const floor=(h.prices||[]).find(price=>price.minimumPublished&&price.unit==='room-night'&&(!price.validFrom||p.startDate>=price.validFrom)&&(!price.validThrough||p.endDate<=price.validThrough));
+ return !floor||floor.unitINR*rooms*nights<=p.budgetINR;
+});}
 const mixTags={balanced:['culture','nature','scenic','children','rest'],nature:['nature','scenic','rest'],culture:['culture','food'],custom:[]};
 export function activityFit(a,p){
  const requested=(p.interests||[]).join(' ').toLowerCase();

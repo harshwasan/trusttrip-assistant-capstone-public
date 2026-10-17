@@ -1,21 +1,32 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {catalogueSchema,eligibleActivities,activityFit} from '../server/catalogue.js';
+import {catalogueSchema,eligibleActivities,eligibleHotels,activityFit} from '../server/catalogue.js';
 import {readiness,acceptPlan,dates} from '../server/domain.js';
 
 const catalogue=catalogueSchema.parse(JSON.parse(await readFile(new URL('../catalogue/catalogue.json',import.meta.url),'utf8')));
 const p={origin:'Jaipur',destination:'Shimla',startDate:'2026-12-01',endDate:'2026-12-03',budgetINR:100000,travellerType:'family',adults:2,elders:1,children:1,rooms:[{label:'Family',adults:2,elders:0,children:1,separate:false},{label:'Elder',adults:0,elders:1,children:0,separate:false}],separateRoomAdults:0,accessibility:['Cannot use stairs'],maxTravelMinutes:90,interests:['Nature'],persona:'Meena Agarwal',activityMix:'nature',allowExcursions:false};
 const raw={days:dates(p.startDate,p.endDate).map(date=>({date,activityIds:['rest']})),hotelIds:[catalogue.hotels[0].id]};
-test('researched seed has sourced identities and no invented guest verification or prices',()=>{
+test('researched seed has sourced identities and dated, attributable price components',()=>{
  const ids=[...catalogue.hotels,...catalogue.activities].map(x=>x.id);assert.equal(new Set(ids).size,ids.length);
  for(const d of ['Shimla','Goa','Udaipur','Kochi','Tokyo','Singapore','Kathmandu']){
   assert.ok(catalogue.hotels.some(h=>h.destination===d),`${d} has at least one sourced hotel`);
   assert.ok(catalogue.activities.filter(a=>a.destination===d).length>=5,`${d} has at least five sourced places`);
  }
  for(const x of [...catalogue.hotels,...catalogue.activities])assert.ok(x.id.startsWith(x.destination.toLowerCase()+'_'));
- for(const h of catalogue.hotels){assert.match(h.sourceUrl,/^https:\/\//);assert.equal(h.prices.length,0);assert.ok(h.evidence.every(e=>e.label!=='Guest-verified'));}
+ for(const h of catalogue.hotels){assert.match(h.sourceUrl,/^https:\/\//);assert.ok(h.evidence.every(e=>e.label!=='Guest-verified'));for(const price of h.prices){assert.match(price.sourceUrl,/^https:\/\//);assert.ok(price.checkedAt);assert.ok(price.unitINR>0);}}
+ const bolgatty=catalogue.hotels.find(h=>h.id==='kochi_bolgatty_palace');
+ assert.equal(bolgatty.prices[0].unitINR,4000);
+ assert.equal(bolgatty.prices[1].unitINR,4500);
+ assert.equal(bolgatty.prices[0].unit,'room-night');
+ assert.equal(bolgatty.prices[0].validThrough,'2027-03-31');
  for(const a of catalogue.activities){assert.match(a.sourceUrl,/^https:\/\//);assert.equal(a.priceINR,null);assert.equal(a.access.status,'unknown');}
+});
+test('priced hotel is excluded when even its published room floor exceeds the full trip budget',()=>{
+ const budgetFamily={...p,destination:'Kochi',startDate:'2027-02-02',endDate:'2027-02-06',budgetINR:18000,
+  rooms:[{label:'Room 1',adults:2,elders:0,children:1,separate:false},{label:'Room 2',adults:0,elders:1,children:0,separate:false}]};
+ assert.ok(!eligibleHotels(budgetFamily,catalogue).some(h=>h.id==='kochi_bolgatty_palace'));
+ assert.ok(eligibleHotels({...budgetFamily,budgetINR:40000},catalogue).some(h=>h.id==='kochi_bolgatty_palace'));
 });
 test('family must choose a mix and custom needs actual interests',()=>{
  assert.equal(readiness({...p,activityMix:null}).ready,false);
@@ -75,4 +86,4 @@ test('undated hotel statement keeps source date null, but undated guest verifica
  const changed=structuredClone(catalogue);changed.hotels[0].evidence[0].label='Guest-verified';assert.equal(catalogueSchema.safeParse(changed).success,false);
 });
 
-test('explanation payload strips location-bearing catalogue IDs and free text',async()=>{const {explanationContext}=await import('../server/ai.js');const plan=structuredClone(raw);plan.days[0].activityIds=['shimla_ridge','rest'];const context=explanationContext({preferences:p,plan:acceptPlan(plan,p,catalogue)});const text=JSON.stringify(context);assert.ok(!text.includes('shimla'));assert.ok(!text.includes('Shimla'));assert.ok(!text.includes('Jaipur'));assert.ok(!text.includes('Cannot use stairs'));assert.deepEqual(context.activityKinds[0],['catalogue-place','rest']);});
+test('explanation payload carries fit tags without location-bearing IDs or free text',async()=>{const {explanationContext}=await import('../server/ai.js');const plan=structuredClone(raw);plan.days[0].activityIds=['shimla_ridge','rest'];const context=explanationContext({preferences:p,plan:acceptPlan(plan,p,catalogue)});const text=JSON.stringify(context);assert.ok(!text.includes('shimla'));assert.ok(!text.includes('Shimla'));assert.ok(!text.includes('Jaipur'));assert.ok(!text.includes('Cannot use stairs'));assert.equal(context.namedPlaceCount,1);assert.ok(Array.isArray(context.matchedInterestTags));assert.deepEqual(context.activityKinds[0],['catalogue-place','rest']);});
